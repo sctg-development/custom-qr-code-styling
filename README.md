@@ -28,4 +28,4 @@ git clone https://github.com/sctg-development/custom-qr-code-styling
 > yarn
 ```
 
-### [Live](https://customqr.vercel.app/)
+### [Live](https://qr.lesailesdumontblanc.com/)
