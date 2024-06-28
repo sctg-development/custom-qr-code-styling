@@ -10,7 +10,7 @@ function Header(): JSX.Element {
               <span className='fw-bolder'>ADMB</span> QR CODE GENERATOR
             </h1>
           </div>
-          <a target='_blank' rel='noopener noreferrer' href='https://github.com/awran5/custom-qr-code-styling'>
+          <a target='_blank' rel='noopener noreferrer' href='https://lesailesdumontblanc.com'>
             <img src="/admb-white.svg" alt="ADMB" width="50" height="50" />
           </a>
         </div>
