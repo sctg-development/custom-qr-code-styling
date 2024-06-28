@@ -11,6 +11,7 @@ import VCardForm from './Components/Forms/VCard'
 import WiFiForm from './Components/Forms/WiFi'
 import Footer from './Components/Footer'
 import Download from './Components/Download'
+import { debug } from 'util'
 
 const tabs = [
   {
@@ -106,7 +107,7 @@ function App() {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }))
-
+    debugger;
     if (!files) return
 
     const image = files[0]
@@ -415,6 +416,7 @@ function App() {
                 Logo
               </label>
               <div className='col-sm-9'>
+                
                 <div className='input-group'>
                   <input
                     id='image'
@@ -439,6 +441,24 @@ function App() {
                 {uploadError.current && <span className='text-danger'>{uploadError.current}</span>}
                 <div className='form-text'>
                   Upload your own logo image as .png, .jpg, .gif or .svg file format with a maximum size of 2 MB.
+                </div>
+                <div className='form-text'>
+                  Or use an intermal logo.
+                </div>
+                <div className='col-sm-6'>
+                <select
+                    id='internalImage'
+                  className='form-select'
+                  name='image'
+                  value={options.image}
+                  onChange={handleOptions}
+                >
+                  <option value='/admb.svg'>Mini Admb light blue</option>
+                  <option value='/admb-navy.svg'>Mini Admb navy blue</option>
+                  <option value='/admb-red.svg'>Mini Admb red</option>
+                  <option value='/admb-black.svg'>Mini Admb black</option>
+                  <option value='/gin.svg'>Website paraglider</option>
+                </select>
                 </div>
               </div>
             </div>
