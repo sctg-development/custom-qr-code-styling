@@ -1,5 +1,5 @@
 import React, { createContext, createRef, useEffect } from 'react'
-import QRCodeStyling from 'qr-code-styling'
+import {QRCodeStyling} from "@liquid-js/qr-code-styling"
 
 const canvasRef = createRef<HTMLDivElement>()
 
@@ -17,7 +17,9 @@ const qrCode = new QRCodeStyling({
   image: `${window.location.origin}/scanme.svg`,
 
   imageOptions: {
-    crossOrigin: 'anonymous'
+    crossOrigin: 'anonymous',
+    margin: 1,
+    imageSize: 0.5
   }
 })
 

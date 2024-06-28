@@ -1,10 +1,11 @@
 import React, { useCallback, useContext } from 'react'
 import { AppContext } from '../Context'
-
+import { browserUtils } from '@liquid-js/qr-code-styling'
 const Download = (): JSX.Element => {
   const { qrCode } = useContext(AppContext)
 
-  const handleDownload = useCallback((ext: string) => qrCode.download(ext), [qrCode])
+  
+  const handleDownload = useCallback((ext: string) => browserUtils?.download(qrCode, ext as any), [qrCode])
 
   return (
     <div className='d-flex align-items-center pt-4'>

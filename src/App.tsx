@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect, useRef, useContext, useReducer } from 'react'
-import { DotType, CornerSquareType, CornerDotType } from 'qr-code-styling'
+import { DotType, CornerSquareType, CornerDotType } from "@liquid-js/qr-code-styling"
 import { AppContext } from './Context'
 import Header from './Components/Header'
 import Tabs from './Components/Tabs'
@@ -69,11 +69,11 @@ const initialOptions: Options = {
   removeBrand: false,
   image: defaultBrand,
   imageMargin: 10,
-  mainShape: 'dots',
+  mainShape: DotType.dot,
   shapeColor: '#1E2470',
-  squareShape: 'extra-rounded',
+  squareShape: CornerSquareType.extraRounded,
   squareColor: '#008ADC',
-  cornersDotShape: 'dot',
+  cornersDotShape: CornerDotType.dot,
   cornersDotColor: '#D90012',
   errorCorrectionLevel: 'H'
 }
@@ -116,11 +116,14 @@ function App() {
   const handleOptions = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
     const { type, name, value, checked, files } = event.target
 
-    setOptions((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }))
-    if (!files) return
+
+    if (!files) {
+      setOptions((prev) => ({
+        ...prev,
+        [name]: type === 'checkbox' ? checked : value
+      }))
+      return
+    }
 
     const image = files[0]
     uploadError.current = ''
@@ -145,9 +148,11 @@ function App() {
       }
 
       fileReader.onload = () => {
+        const image  = fileReader.result as string
+
         setOptions((prev) => ({
           ...prev,
-          image: fileReader.result as string
+          image: image
         }))
       }
       fileReader.readAsDataURL(image)
@@ -201,7 +206,7 @@ function App() {
       },
       width: options.size,
       height: options.size,
-      image,
+      image: image,
       dotsOptions: {
         type: options.mainShape,
         color: options.shapeColor
@@ -215,7 +220,7 @@ function App() {
         color: options.cornersDotColor
       },
       imageOptions: {
-        margin: options.imageMargin
+        margin: options.imageMargin === undefined ? 0 : options.imageMargin/10,
       }
     })
   }, [qrCode, options])
@@ -322,11 +327,16 @@ function App() {
                   onChange={handleOptions}
                 >
                   <option value='square'>Square</option>
+                  <option value='small-square'>Small square</option>
                   <option value='dots'>Dots</option>
+                  <option value='random-dot'>Random dots</option>
                   <option value='rounded'>Rounded</option>
                   <option value='extra-rounded'>Extra rounded</option>
                   <option value='classy'>Classy</option>
                   <option value='classy-rounded'>Classy rounded</option>
+                  <option value='vertical-line'>Vertical lines</option>
+                  <option value='horizontal-line'>Horizontal lines</option>
+                  <option value='diamond'>Diamond</option>
                 </select>
               </div>
             </div>
@@ -363,9 +373,12 @@ function App() {
                   value={options.squareShape}
                   onChange={handleOptions}
                 >
-                  <option value='square'>Square</option>
-                  <option value='dot'>Dot</option>
-                  <option value='extra-rounded'>Extra rounded</option>
+                  <option value={CornerSquareType.square}>Square</option>
+                  <option value={CornerSquareType.dot}>Dot</option>
+                  <option value={CornerSquareType.extraRounded}>Extra rounded</option>
+                  <option value={CornerSquareType.classy}>Classy</option>
+                  <option value={CornerSquareType.inpoint}>Inpoint</option>
+                  <option value={CornerSquareType.outpoint}>Outpoint</option>
                 </select>
               </div>
             </div>
@@ -402,8 +415,13 @@ function App() {
                   value={options.cornersDotShape}
                   onChange={handleOptions}
                 >
-                  <option value='square'>Square</option>
-                  <option value='dot'>Dot</option>
+                  <option value={CornerDotType.square}>Square</option>
+                  <option value={CornerDotType.dot}>Dot</option>
+                  <option value={CornerDotType.classy}>Classy</option>
+                  <option value={CornerDotType.extraRounded}>Extra rounded</option>
+                  <option value={CornerDotType.heart}>Heart</option>
+                  <option value={CornerDotType.inpoint}>Inpoint</option>
+                  <option value={CornerDotType.outpoint}>Outpoint</option>
                 </select>
               </div>
             </div>
@@ -464,6 +482,7 @@ function App() {
                 <div className='col-sm-6'>
                   <select
                     id='internalImage'
+                    title='Internal Logo'
                     className='form-select'
                     name='image'
                     value={options.image}
@@ -506,6 +525,7 @@ function App() {
                     id='errorCorrectionLevel'
                     className='form-select'
                     name='errorCorrectionLevel'
+                    title='Error Correction Level'
                     value={options.errorCorrectionLevel}
                     onChange={handleOptions}
                   >
