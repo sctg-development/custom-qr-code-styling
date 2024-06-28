@@ -457,7 +457,11 @@ function App() {
                   <option value='/admb-navy.svg'>Mini Admb navy blue</option>
                   <option value='/admb-red.svg'>Mini Admb red</option>
                   <option value='/admb-black.svg'>Mini Admb black</option>
+                  <option value='/admb-micro.svg'>Micro Admb light blue</option>
+                  <option value='/admb-micro-navy.svg'>Micro Admb navy blue</option>
+                  <option value='/admb-micro-red.svg'>Micro Admb red</option>
                   <option value='/gin.svg'>Website paraglider</option>
+                  <option value='/wing.svg'>Website wing</option>
                 </select>
                 </div>
               </div>
