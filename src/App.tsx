@@ -14,13 +14,14 @@ import Download from './Components/Download'
 
 const tabs = [
   {
-    label: 'Text',
-    Component: TextForm
-  },
-  {
     label: 'URL',
     Component: UrlForm
   },
+  {
+    label: 'Text',
+    Component: TextForm
+  },
+
   {
     label: 'E-mail',
     Component: EmailForm
@@ -35,7 +36,7 @@ const tabs = [
   }
 ]
 
-const defaultBrand = 'https://raw.githubusercontent.com/awran5/custom-qr-code-styling/main/public/scanme.svg'
+const defaultBrand = '/admb.svg'
 
 interface Options {
   size?: number
@@ -54,13 +55,13 @@ const initialOpions: Options = {
   size: 1000,
   removeBrand: false,
   image: defaultBrand,
-  imageMargin: 20,
+  imageMargin: 10,
   mainShape: 'dots',
-  shapeColor: '#6a1a4c',
+  shapeColor: '#1E2470',
   squareShape: 'extra-rounded',
-  squareColor: '#6a1a4c',
+  squareColor: '#008ADC',
   cornersDotShape: 'dot',
-  cornersDotColor: '#dc3545'
+  cornersDotColor: '#D90012'
 }
 
 const savedValues = localStorage.getItem('qr-code')
@@ -268,11 +269,11 @@ function App() {
 
             <div className='col-12 col-md-6 col-lg-6'>
               <h1 className='display-5 fw-bold lh-1 mb-3 pt-5'>
-                Impress your clients
+                Generate your own QR code
                 <br />
-                surprise your firends!
+                and customize it!
               </h1>
-              <p className='lead'>Generate a modern, styled and branded QR code for Free!</p>
+              <p className='lead'>Generate a modern, styled and branded QR code.</p>
               <Tabs className='mt-5' tabs={tabs} type='pills' />
             </div>
           </div>

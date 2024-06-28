@@ -10,7 +10,11 @@ function Footer(): JSX.Element {
         </a>
         {' - '}{' '}
         <a target='_blank' rel='noopener noreferrer' href='https://github.com/awran5/custom-qr-code-styling'>
-          Github
+          Custom QR Code Styling.
+        </a>
+        {' - '}{' '}
+        <a target='_blank' rel='noopener noreferrer' href='https://github.com/awran5/custom-qr-code-styling'>
+          (c) 2024 Les Ailes du Mont-Blanc
         </a>
       </p>
     </footer>
