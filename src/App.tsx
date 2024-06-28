@@ -326,17 +326,17 @@ function App() {
                   value={options.mainShape}
                   onChange={handleOptions}
                 >
-                  <option value='square'>Square</option>
-                  <option value='small-square'>Small square</option>
-                  <option value='dots'>Dots</option>
-                  <option value='random-dot'>Random dots</option>
-                  <option value='rounded'>Rounded</option>
-                  <option value='extra-rounded'>Extra rounded</option>
-                  <option value='classy'>Classy</option>
-                  <option value='classy-rounded'>Classy rounded</option>
-                  <option value='vertical-line'>Vertical lines</option>
-                  <option value='horizontal-line'>Horizontal lines</option>
-                  <option value='diamond'>Diamond</option>
+                  <option value={DotType.square}>Square</option>
+                  <option value={DotType.smallSquare}>Small square</option>
+                  <option value={DotType.dot}>Dots</option>
+                  <option value={DotType.randomDot}>Random dots</option>
+                  <option value={DotType.rounded}>Rounded</option>
+                  <option value={DotType.extraRounded}>Extra rounded</option>
+                  <option value={DotType.classy}>Classy</option>
+                  <option value={DotType.classyRounded}>Classy rounded</option>
+                  <option value={DotType.verticalLine}>Vertical lines</option>
+                  <option value={DotType.horizontalLine}>Horizontal lines</option>
+                  <option value={DotType.diamond}>Diamond</option>
                 </select>
               </div>
             </div>
