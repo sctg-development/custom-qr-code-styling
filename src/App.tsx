@@ -37,6 +37,17 @@ const tabs = [
   }
 ]
 
+const embeddedLogos = [
+  { path: '/admb.svg', label: 'Mini Admb light blue' },
+  { path: '/admb-navy.svg', label: 'Mini Admb navy blue' },
+  { path: '/admb-red.svg', label: 'Mini Admb red' },
+  { path: '/admb-black.svg', label: 'Mini Admb black' },
+  { path: '/admb-micro.svg', label: 'Micro Admb light blue' },
+  { path: '/admb-micro-navy.svg', label: 'Micro Admb navy blue' },
+  { path: '/admb-micro-red.svg', label: 'Micro Admb red' },
+  { path: '/gin.svg', label: 'Website paraglider' },
+  { path: '/wing.svg', label: 'Website wing' },
+];
 const defaultBrand = '/admb.svg'
 
 interface Options {
@@ -49,10 +60,11 @@ interface Options {
   squareShape?: CornerSquareType
   squareColor?: string
   cornersDotShape?: CornerDotType
-  cornersDotColor?: string
+  cornersDotColor?: string,
+  errorCorrectionLevel?: 'L' | 'M' | 'Q' | 'H'
 }
 
-const initialOpions: Options = {
+const initialOptions: Options = {
   size: 1000,
   removeBrand: false,
   image: defaultBrand,
@@ -62,11 +74,12 @@ const initialOpions: Options = {
   squareShape: 'extra-rounded',
   squareColor: '#008ADC',
   cornersDotShape: 'dot',
-  cornersDotColor: '#D90012'
+  cornersDotColor: '#D90012',
+  errorCorrectionLevel: 'H'
 }
 
 const savedValues = localStorage.getItem('qr-code')
-const optionsValues: Options = savedValues ? JSON.parse(savedValues) : initialOpions
+const optionsValues: Options = savedValues ? JSON.parse(savedValues) : initialOptions
 
 declare type State = {
   offcanvas: boolean
@@ -165,7 +178,7 @@ function App() {
     if (uploadRef.current) {
       uploadRef.current.value = ''
     }
-    setOptions(initialOpions)
+    setOptions(initialOptions)
   }
 
   const handleResetImage = () => {
@@ -182,6 +195,9 @@ function App() {
   useEffect(() => {
     const image = options.removeBrand ? '' : options.image
     qrCode.update({
+      qrOptions: {
+        errorCorrectionLevel: options.errorCorrectionLevel,
+      },
       width: options.size,
       height: options.size,
       image,
@@ -416,7 +432,7 @@ function App() {
                 Logo
               </label>
               <div className='col-sm-9'>
-                
+
                 <div className='input-group'>
                   <input
                     id='image'
@@ -429,9 +445,8 @@ function App() {
                   />
 
                   <button
-                    className={`input-group-text${
-                      uploadRef.current && uploadRef.current.value === '' ? ' disabled' : ''
-                    }`}
+                    className={`input-group-text${uploadRef.current && uploadRef.current.value === '' ? ' disabled' : ''
+                      }`}
                     onClick={handleResetImage}
                     type='button'
                   >
@@ -446,23 +461,19 @@ function App() {
                   Or use an intermal logo.
                 </div>
                 <div className='col-sm-6'>
-                <select
+                  <select
                     id='internalImage'
-                  className='form-select'
-                  name='image'
-                  value={options.image}
-                  onChange={handleOptions}
-                >
-                  <option value='/admb.svg'>Mini Admb light blue</option>
-                  <option value='/admb-navy.svg'>Mini Admb navy blue</option>
-                  <option value='/admb-red.svg'>Mini Admb red</option>
-                  <option value='/admb-black.svg'>Mini Admb black</option>
-                  <option value='/admb-micro.svg'>Micro Admb light blue</option>
-                  <option value='/admb-micro-navy.svg'>Micro Admb navy blue</option>
-                  <option value='/admb-micro-red.svg'>Micro Admb red</option>
-                  <option value='/gin.svg'>Website paraglider</option>
-                  <option value='/wing.svg'>Website wing</option>
-                </select>
+                    className='form-select'
+                    name='image'
+                    value={options.image}
+                    onChange={handleOptions}
+                  >
+                    {embeddedLogos.map((logo) => (
+                      <option key={logo.path} value={logo.path}>
+                        {logo.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>
@@ -481,6 +492,29 @@ function App() {
                   value={options.imageMargin}
                   onChange={handleOptions}
                 />
+              </div>
+            </div>
+
+            <div className='main-shape'>
+              <div className='row'>
+                <label htmlFor='errorLevel' className='col-sm-6 col-form-label fw-bold mb-3'>
+                  Error Correction Level
+                </label>
+                <div className='col-sm-6'>
+                  <select
+                    id='errorCorrectionLevel'
+                    className='form-select'
+                    name='errorCorrectionLevel'
+                    value={options.errorCorrectionLevel}
+                    onChange={handleOptions}
+                  >
+                    <option value='H'>High</option>
+                    <option value='M'>Medium</option>
+                    <option value='Q'>Basic</option>
+                    <option value='L'>Low</option>
+
+                  </select>
+                </div>
               </div>
             </div>
           </div>
