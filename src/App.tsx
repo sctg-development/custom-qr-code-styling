@@ -107,7 +107,6 @@ function App() {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }))
-    debugger;
     if (!files) return
 
     const image = files[0]
@@ -153,6 +152,7 @@ function App() {
     }, 1000)
 
     localStorage.setItem('qr-code', JSON.stringify(options))
+    console.log(JSON.stringify(options))
   }
 
   const handleSavedValues = () => {
