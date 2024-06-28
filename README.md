@@ -13,7 +13,7 @@ Generate a modern, styled and branded QR code for Free!. Build with React, based
 - Download or clone the repo:
 
 ```
-git clone https://github.com/awran5/custom-qr-code-styling.git
+git clone https://github.com/sctg-development/custom-qr-code-styling
 ```
 
 ## Install
