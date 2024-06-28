@@ -1,6 +1,6 @@
 # Custom QR Code Styling
 
-Generate a modern, styled and branded QR code for Free!. Build with React, based on [QR Code Styling](https://github.com/kozakdenys/qr-code-styling) JS library
+Generate a modern, styled and branded QR code for Free!. Build with React, based on [QR Code Styling](https://github.com/kozakdenys/qr-code-styling) JS library and [Custom QR Code Styling](styled and branded QR code for Free) 
 
 <hr />
 
