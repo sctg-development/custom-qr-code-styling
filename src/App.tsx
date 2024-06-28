@@ -11,7 +11,6 @@ import VCardForm from './Components/Forms/VCard'
 import WiFiForm from './Components/Forms/WiFi'
 import Footer from './Components/Footer'
 import Download from './Components/Download'
-import { debug } from 'util'
 
 const tabs = [
   {
@@ -37,6 +36,7 @@ const tabs = [
   }
 ]
 
+const defaultData = 'https://lesailesdumontblanc.com'
 const embeddedLogos = [
   { path: '/admb.svg', label: 'Mini Admb light blue' },
   { path: '/admb-navy.svg', label: 'Mini Admb navy blue' },
@@ -195,6 +195,7 @@ function App() {
   useEffect(() => {
     const image = options.removeBrand ? '' : options.image
     qrCode.update({
+      data: defaultData,
       qrOptions: {
         errorCorrectionLevel: options.errorCorrectionLevel,
       },

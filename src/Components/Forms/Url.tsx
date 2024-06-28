@@ -3,7 +3,7 @@ import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
 function UrlForm() {
-  const [values, setValues] = useState('')
+  const [values, setValues] = useState('https://lesailesdumontblanc.com')
   const { qrCode } = useContext(AppContext)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
