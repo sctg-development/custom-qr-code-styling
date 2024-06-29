@@ -45,7 +45,7 @@ function GeoForm() {
         <input
           id='longitude'
           className='form-control'
-          type='text'
+          type='number'
           name='longitude'
           value={values.longitude}
           onChange={handleChange}

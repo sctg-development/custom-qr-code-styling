@@ -24,7 +24,6 @@ const tabs = [
     label: 'Text',
     Component: TextForm
   },
-
   {
     label: 'E-mail',
     Component: EmailForm
