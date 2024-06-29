@@ -12,11 +12,11 @@ function SmsForm() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
     const { name, value, checked } = event.target
-    const type:React.HTMLInputTypeAttribute = event.target.type
+    const type: React.HTMLInputTypeAttribute = event.target.type
 
     setValues((prev) => ({
       ...prev,
-      [name]: type === 'checkbox'  as React.HTMLInputTypeAttribute ? checked : value
+      [name]: type === ('checkbox' as React.HTMLInputTypeAttribute) ? checked : value
     }))
   }
 
@@ -42,6 +42,8 @@ function SmsForm() {
           required
         />
         <label htmlFor='number'>Destination number</label>
+      </div>
+      <div className='form-floating mb-3'>
         <input
           id='message'
           className='form-control'

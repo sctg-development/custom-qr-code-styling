@@ -3,8 +3,8 @@ import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
 const initialValues = {
-  latitude: '45.926436',
-  longitude: '6.8676'
+  latitude: 45.926436,
+  longitude: 6.8676
 }
 function GeoForm() {
   const [values, setValues] = useState(initialValues)
@@ -12,11 +12,11 @@ function GeoForm() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
     const { name, value, checked } = event.target
-    const type:React.HTMLInputTypeAttribute = event.target.type
+    const type: React.HTMLInputTypeAttribute = event.target.type
 
     setValues((prev) => ({
       ...prev,
-      [name]: type === 'checkbox'  as React.HTMLInputTypeAttribute ? checked : value
+      [name]: type === ('checkbox' as React.HTMLInputTypeAttribute) ? checked : value
     }))
   }
 
@@ -41,7 +41,9 @@ function GeoForm() {
           placeholder='Latitude (in decimal)'
           required
         />
-        <label htmlFor='number'>Latitude (in decimal)</label>
+        <label htmlFor='latitude'>Latitude (in decimal)</label>
+      </div>
+      <div className='form-floating mb-3'>
         <input
           id='longitude'
           className='form-control'
