@@ -3,9 +3,10 @@
   "version": "0.2.0",
   "private": false,
   "dependencies": {
-    "@liquid-js/qr-code-styling":"^3.1.1",
-    "react": "^18.3.1",
+    "@liquid-js/qr-code-styling": "^3.1.1",
     "bootstrap": "^5.3.0",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.3",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^4.2.0"
