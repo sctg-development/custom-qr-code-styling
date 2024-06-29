@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect, useRef, useContext, useReducer } from 'react'
-import { DotType, CornerSquareType, CornerDotType } from "@liquid-js/qr-code-styling"
+import { DotType, CornerSquareType, CornerDotType, ShapeType } from "@liquid-js/qr-code-styling"
 import { AppContext } from './Context'
 import Header from './Components/Header'
 import Tabs from './Components/Tabs'
@@ -51,6 +51,7 @@ const embeddedLogos = [
 const defaultBrand = '/admb.svg'
 
 interface Options {
+  shape?: ShapeType,
   size?: number
   removeBrand?: boolean
   image?: string
@@ -65,6 +66,7 @@ interface Options {
 }
 
 const initialOptions: Options = {
+  shape: ShapeType.square,
   size: 1000,
   removeBrand: false,
   image: defaultBrand,
@@ -204,6 +206,7 @@ function App() {
       qrOptions: {
         errorCorrectionLevel: options.errorCorrectionLevel,
       },
+      shape: options.shape,
       width: options.size,
       height: options.size,
       image: image,
@@ -347,6 +350,25 @@ function App() {
         </div>
         <div className='offcanvas-body'>
           <div className='main-shape'>
+            <div className='row'>
+              <label htmlFor='shape' className='col-sm-6 col-form-label fw-bold mb-3'>
+                Outer Shape
+              </label>
+              <div className='col-sm-6'>
+                <select
+                id="shape"
+                title='Outer Shape'
+                className="form-select"
+                name="shape"
+                value={options.shape}
+                onChange={handleOptions}
+                >
+                  <option value={ShapeType.square}>Square</option>
+                  <option value={ShapeType.circle}>Circle</option>
+                </select>
+              </div>
+            </div>
+            <hr />
             <div className='row'>
               <label htmlFor='mainShape' className='col-sm-6 col-form-label fw-bold mb-3'>
                 Main Shape
