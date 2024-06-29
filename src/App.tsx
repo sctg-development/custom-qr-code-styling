@@ -7,6 +7,7 @@ import Tabs from './Components/Tabs'
 import TextForm from './Components/Forms/Text'
 import UrlForm from './Components/Forms/Url'
 import SmsForm from './Components/Forms/Sms'
+import TelForm from './Components/Forms/Tel'
 import EmailForm from './Components/Forms/Email'
 import VCardForm from './Components/Forms/VCard'
 import WiFiForm from './Components/Forms/WiFi'
@@ -38,6 +39,10 @@ const tabs = [
   {
     label: 'SMS',
     Component: SmsForm
+  },
+  {
+    label: 'Phone',
+    Component: TelForm
   }
 ]
 
