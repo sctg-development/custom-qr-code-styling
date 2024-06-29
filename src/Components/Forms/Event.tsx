@@ -50,10 +50,11 @@ function formatDate(date: Date): string {
   return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}T${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
 }
 const initialValues = {
-  summary: 'Tandem flight',
+  summary: 'Tandem flight with Les Ailes du Mont-Blanc',
   latitude: 45.936562,
   longitude:6.851181,
   description: 'Tandem flight with an instructor',
+  location: "29 Rte Henriette d'Angeville, 74400 Chamonix-Mont-Blanc",
   dtstart:  new Date(),
   dtend: addOneHourToDate(new Date())
 }
@@ -80,6 +81,7 @@ UID:${Math.random().toString(36).substring(2, 9)}
 SUMMARY:${values.summary}
 DTSTART:${getCurrentDateFormatted(values.dtstart)}
 DTEND:${getCurrentDateFormatted(values.dtend)}
+LOCATION:${values.location.replaceAll(',', '\\,')}
 GEO:${values.latitude};${values.longitude}
 DESCRIPTION:${values.description}
 END:VEVENT`
@@ -152,6 +154,19 @@ END:VEVENT`
           required
         />
         <label htmlFor='dtstart'>Start date</label>
+      </div>
+      <div className='form-floating mb-3'>
+        <input
+          id='location'
+          className='form-control'
+          type='text'
+          name='location'
+          value={values.location}
+          onChange={handleChange}
+          placeholder='Location in text form'
+          required
+        />
+        <label htmlFor='location'>Address</label>
       </div>
       <div className='form-floating mb-3'>
         <input
