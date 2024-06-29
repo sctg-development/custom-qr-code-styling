@@ -96,7 +96,7 @@ const WiFiForm = () => {
         >
           <option value='nopass'>Open</option>
           <option value='WEP'>WEP</option>
-          <option value='WPA/WPA2-PSK'>WPA/WPA2-PSK</option>
+          <option value='WPA'>WPA/WPA2-PSK/WPA3</option>
         </select>
         <label htmlFor='encryption'>Encryption</label>
       </div>
