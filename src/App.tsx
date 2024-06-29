@@ -14,6 +14,7 @@ import VCardForm from './Components/Forms/VCard'
 import WiFiForm from './Components/Forms/WiFi'
 import Footer from './Components/Footer'
 import Download from './Components/Download'
+import EventForm from './Components/Forms/Event'
 
 const tabs = [
   {
@@ -47,7 +48,12 @@ const tabs = [
   {
     label: 'Phone',
     Component: TelForm
+  },
+  {
+    label: 'Event',
+    Component: EventForm
   }
+
 ]
 
 // All embedded logos
@@ -342,7 +348,7 @@ function App() {
               </div>
             </div>
 
-            <div className='col-12 col-md-6 col-lg-6'>
+            <div className='col-12 col-md-6 col-lg-7'>
               <h1 className='display-5 fw-bold lh-1 mb-3 pt-5'>
                 Generate your own QR code
                 <br />
