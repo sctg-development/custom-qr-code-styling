@@ -7,6 +7,7 @@ import Tabs from './Components/Tabs'
 import TextForm from './Components/Forms/Text'
 import UrlForm from './Components/Forms/Url'
 import SmsForm from './Components/Forms/Sms'
+import GeoForm from './Components/Forms/Geo'
 import TelForm from './Components/Forms/Tel'
 import EmailForm from './Components/Forms/Email'
 import VCardForm from './Components/Forms/VCard'
@@ -31,6 +32,10 @@ const tabs = [
   {
     label: 'VCard',
     Component: VCardForm
+  },
+  {
+    label: 'Place',
+    Component: GeoForm
   },
   {
     label: 'WiFi',
