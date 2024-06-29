@@ -114,13 +114,13 @@ function App() {
   const uploadError = useRef('')
 
   const handleOptions = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
-    const { type, name, value, checked, files } = event.target
-
+    const { name, value, checked, files } = event.target
+    const type:React.HTMLInputTypeAttribute = event.target.type
 
     if (!files) {
       setOptions((prev) => ({
         ...prev,
-        [name]: type === 'checkbox' ? checked : value
+        [name]: type === 'checkbox' as React.HTMLInputTypeAttribute ? checked : value
       }))
       return
     }

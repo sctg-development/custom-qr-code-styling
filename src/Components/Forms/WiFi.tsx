@@ -50,11 +50,12 @@ const WiFiForm = () => {
   const { qrCode } = useContext(AppContext)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
-    const { type, name, value, checked } = event.target
+    const { name, value, checked } = event.target
+    const type:React.HTMLInputTypeAttribute = event.target.type
 
     setValues((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox'  as React.HTMLInputTypeAttribute ? checked : value
     }))
   }
 
