@@ -14,13 +14,14 @@ interface ProviderProps {
 
 const qrCode = new QRCodeStyling({
   data: window.location.origin,
+  shape: 'square',
   image: `${window.location.origin}/scanme.svg`,
 
   imageOptions: {
     crossOrigin: 'anonymous',
     margin: 1,
     imageSize: 0.5
-  }
+  },
 })
 
 export const AppContext = createContext<ContextProps>({
