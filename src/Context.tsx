@@ -13,7 +13,7 @@ interface ProviderProps {
 }
 
 const qrCode = new QRCodeStyling({
-  data: window.location.origin,
+  data: 'https://lesailesdumontblanc.com',
   shape: 'square',
   image: `${window.location.origin}/scanme.svg`,
 
