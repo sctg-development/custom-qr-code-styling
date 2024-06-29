@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import ContextProvider from './Context'
 import App from './App'
-import './bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
 const container = document.getElementById('root');
