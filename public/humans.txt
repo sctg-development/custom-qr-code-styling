@@ -1,0 +1,20 @@
+/* TEAM */
+	Creator: Ronan LE MEILLAT
+	Contact: Ronan.Le_meillat [at] sctg.eu.org
+	From: Les Contamines-Monjoie, Haute-Savoie, France
+
+/* THANKS */
+
+	Hosting: Github, Cloudflare
+    QR Code Styling JS library: kozakdenys
+    Custom QR Code Styling: awran5
+
+
+/* SITE */
+	Language: English
+	Doctype:HTML5
+	IDE: Visual Studio Code
+    Frameworks: React, Bootstrap
+
+/* SOURCE CODE */
+    URL: https://github.com/sctg-development/custom-qr-code-styling/
