@@ -109,6 +109,7 @@ function App() {
     offcanvas: false
   })
 
+  const divRef = useRef<HTMLDivElement>(null);
   const offcanvasRef = useRef<HTMLInputElement>(null)
   const uploadRef = useRef<HTMLInputElement>(null)
   const uploadError = useRef('')
@@ -223,6 +224,7 @@ function App() {
         margin: options.imageMargin === undefined ? 0 : options.imageMargin/10,
       }
     })
+
   }, [qrCode, options])
 
   useEffect(() => {
@@ -233,6 +235,38 @@ function App() {
     }
   }, [offcanvas])
 
+  // Dynamically resize SVG but ignore SVG inside SVG
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (!mutation.addedNodes) return;
+        for (let i = 0; i < mutation.addedNodes.length; i++) {
+          const node = mutation.addedNodes[i];
+          if (node.nodeName.toLowerCase() === 'svg') {
+            const svg = node as SVGElement;
+            if (svg.parentElement instanceof SVGElement) {
+              console.log(`Parent is SVG so don't touch it`);
+            }
+            else {
+              console.log(`Parent is not SVG so touch it`);
+              svg.setAttribute('width', '100%');
+              svg.removeAttribute('height');
+            }
+          }
+        }
+      });
+    });
+
+    if (canvasRef.current) {
+      observer.observe(canvasRef.current, {
+        childList: true, // observe direct children
+        subtree: true,  // and lower descendants too
+      });
+    }
+
+    return () => observer.disconnect(); // Clean up
+  }, []);
+
   return (
     <div className='d-flex flex-column vh-100 App'>
       <Header />
@@ -241,8 +275,8 @@ function App() {
         <div className='container py-5'>
           <div className='row flex-lg-row-reverse justify-content-between g-5 py-5'>
             <div className='col-12 col-md-4'>
-              <div className='qr-code-container'>
-                <div className='qr-code text-center mx-auto' ref={canvasRef} />
+              <div className='qr-code-container' ref={divRef}>
+                <div className='qr-code text-center mx-auto object-fit-contain' ref={canvasRef} />
                 <div className='customization'>
                   <div className='py-5'>
                     <input
