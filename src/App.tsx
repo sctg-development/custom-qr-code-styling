@@ -36,7 +36,8 @@ const tabs = [
   }
 ]
 
-//const defaultData = 'https://lesailesdumontblanc.com'
+// All embedded logos
+// See public directory for the images
 const embeddedLogos = [
   { path: '/admb.svg', label: 'Mini Admb light blue' },
   { path: '/admb-navy.svg', label: 'Mini Admb navy blue' },
@@ -47,6 +48,7 @@ const embeddedLogos = [
   { path: '/admb-micro-red.svg', label: 'Micro Admb red' },
   { path: '/gin.svg', label: 'Website paraglider' },
   { path: '/wing.svg', label: 'Website wing' },
+  { path: '/scanme.svg', label: 'Scan me' },
 ];
 const defaultBrand = '/admb.svg'
 
