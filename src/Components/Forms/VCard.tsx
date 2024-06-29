@@ -3,6 +3,7 @@ import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
 const initialValues = {
+  title: '',
   firstName: '',
   lastName: '',
   company: '',
@@ -23,7 +24,7 @@ const VCardForm = () => {
   const [values, setValues] = useState(initialValues)
   const { qrCode } = useContext(AppContext)
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
     const { name, value } = event.target
     setValues((prev) => ({
       ...prev,
@@ -35,6 +36,7 @@ const VCardForm = () => {
     event.preventDefault()
 
     const {
+      title,
       firstName,
       lastName,
       company,
@@ -53,7 +55,7 @@ const VCardForm = () => {
 
     const data = `BEGIN:VCARD
 VERSION:3.0
-N:${lastName};${firstName};;Mr.;
+N:${lastName};${firstName};;${title};
 FN:${firstName} ${lastName}
 ORG:${company}.
 TITLE:${job}
@@ -73,6 +75,28 @@ END:VCARD`
   return (
     <form className='qrForm-vcard' onSubmit={handleSubmit}>
       <div className='row mb-3'>
+        <div className='col'>
+          <div className='form-floating'>
+            <select
+              id='title'
+              className='form-select'
+              name='title'
+              value={values.title}
+              onChange={handleChange}
+            >
+              <option value=''></option>
+              <option value='M.'>M.</option>
+              <option value='Mr.'>Mr.</option>
+              <option value='Ms.'>Ms.</option>
+              <option value='Mme.'>Mme.</option>
+              <option value='Mle.'>Mlle.</option>
+              <option value='Mrs.'>Mrs.</option>
+              <option value='Dr.'>Dr.</option>
+              <option value='Prof.'>Prof.</option>
+            </select>
+            <label htmlFor='title'>Title</label>
+          </div>
+        </div>
         <div className='col'>
           <div className='form-floating'>
             <input
