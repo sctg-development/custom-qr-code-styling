@@ -334,7 +334,7 @@ function App() {
                 <br />
                 and customize it!
               </h1>
-              <p className='lead'>Generate a modern, styled and branded QR code.</p>
+              <p className='lead text-secondary'>Brought to you for free by <a className="text-secondary" href="https://lesailesdumontblanc.com">Les Ailes du Mont-Blanc Paragliding School</a>.</p>
               <Tabs className='mt-5' tabs={tabs} type='pills' />
             </div>
           </div>
