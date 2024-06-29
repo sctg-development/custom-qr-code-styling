@@ -17,6 +17,7 @@
 .qr-code {
   max-width: 500px;
   max-height: 500px;
+  position: -webkit-sticky;
   position: sticky;
   z-index: 1050;
   top: 10px;
