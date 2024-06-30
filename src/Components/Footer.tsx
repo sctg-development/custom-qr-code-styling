@@ -1,6 +1,9 @@
 import React from 'react'
+import { adWebsiteUrl, creationYear } from '../configuration'
 
 function Footer(): JSX.Element {
+  const currentYear = new Date().getFullYear()
+  const copyrightString = currentYear === creationYear ? `${currentYear}` : `${creationYear}-${currentYear}`
   return (
     <footer className='mt-auto text-center text-secondary fs-6 fw-light'>
       <p>
@@ -13,8 +16,8 @@ function Footer(): JSX.Element {
           Custom QR Code Styling
         </a>
         {' - '}{' '}
-        <a className="text-secondary" target='_blank' rel='noopener noreferrer' href='https://lesailesdumontblanc.com'>
-        © 2024 Les Ailes du Mont-Blanc
+        <a className="text-secondary" target='_blank' rel='noopener noreferrer' href={adWebsiteUrl.url}>
+        © {copyrightString} {adWebsiteUrl.name}
         </a>
         &nbsp;and&nbsp;
         <a className="text-secondary" target='_blank' rel='noopener noreferrer' href='https://sctg.eu.org'>

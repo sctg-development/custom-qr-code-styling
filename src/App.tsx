@@ -16,6 +16,7 @@ import WiFiForm from './Components/Forms/WiFi'
 import Footer from './Components/Footer'
 import Download from './Components/Download'
 import EventForm from './Components/Forms/Event'
+import { adWebsiteUrl, basicOptions, defaultBrand, embeddedLogos, initialOptions } from './configuration'
 
 type Tab = {
   label: 'URL' | 'Text' | 'E-mail' | 'VCard' | 'Place' | 'WiFi' | 'SMS' | 'Phone' | 'Event'
@@ -61,23 +62,7 @@ const tabs: Tab[] = [
   }
 ]
 
-// All embedded logos
-// See public directory for the images
-const embeddedLogos = [
-  { path: '/admb.svg', label: 'Mini Admb light blue' },
-  { path: '/admb-navy.svg', label: 'Mini Admb navy blue' },
-  { path: '/admb-red.svg', label: 'Mini Admb red' },
-  { path: '/admb-black.svg', label: 'Mini Admb black' },
-  { path: '/admb-micro.svg', label: 'Micro Admb light blue' },
-  { path: '/admb-micro-navy.svg', label: 'Micro Admb navy blue' },
-  { path: '/admb-micro-red.svg', label: 'Micro Admb red' },
-  { path: '/gin.svg', label: 'Website paraglider' },
-  { path: '/wing.svg', label: 'Website wing' },
-  { path: '/scanme.svg', label: 'Scan me' }
-]
-const defaultBrand = '/admb.svg'
-
-interface Options {
+export interface Options {
   shape?: ShapeType
   size?: number
   removeBrand?: boolean
@@ -92,35 +77,7 @@ interface Options {
   errorCorrectionLevel?: ErrorCorrectionLevel
 }
 
-const initialOptions: Options = {
-  shape: ShapeType.square,
-  size: 1000,
-  removeBrand: false,
-  image: defaultBrand,
-  imageMargin: 10,
-  mainShape: DotType.dot,
-  shapeColor: '#1E2470',
-  squareShape: CornerSquareType.extraRounded,
-  squareColor: '#008ADC',
-  cornersDotShape: CornerDotType.dot,
-  cornersDotColor: '#D90012',
-  errorCorrectionLevel: ErrorCorrectionLevel.H
-}
 
-const basicOptions: Options = {
-  shape: ShapeType.square,
-  size: 1000,
-  removeBrand: true,
-  image: defaultBrand,
-  imageMargin: 10,
-  mainShape: DotType.square,
-  shapeColor: '#000000',
-  squareShape: CornerSquareType.square,
-  squareColor: '#000000',
-  cornersDotShape: CornerDotType.square,
-  cornersDotColor: '#000000',
-  errorCorrectionLevel: ErrorCorrectionLevel.H
-}
 
 const savedValues = localStorage.getItem('qr-code')
 const optionsValues: Options = savedValues ? JSON.parse(savedValues) : initialOptions
@@ -350,7 +307,7 @@ function App(): ReactElement {
      * @param {MouseEvent} event - The MouseEvent object.
      * @return {void} This function does not return anything.
      */
-    window.onclick = (event: MouseEvent) => {
+    window.onclick = (event: MouseEvent): void => {
       if (offcanvas && offcanvasRef.current) {
         if (event.target === offcanvasRef.current) dispatch({ type: 'offcanvas-close' })
       }
@@ -453,8 +410,8 @@ function App(): ReactElement {
               </h1>
               <p className='lead text-secondary'>
                 Brought to you for free by{' '}
-                <a className='text-secondary' href='https://lesailesdumontblanc.com'>
-                  Les Ailes du Mont-Blanc Paragliding School
+                <a className='text-secondary' href={adWebsiteUrl.url}>
+                  {adWebsiteUrl.longName}
                 </a>
                 .
               </p>

@@ -28,4 +28,17 @@ git clone https://github.com/sctg-development/custom-qr-code-styling
 > yarn
 ```
 
+### Customization
+
+If you want to customize this QR code generator, first give us a star, clone this repository and then follow the steps below:
+
+1. Open the `src/configuration.ts` file.
+2. Edit the configuration object as you wish.
+3. Save the file.
+4. Build the project. With npm:
+
+```bash
+> npm run build
+```
+
 ### [Live](https://qr.lesailesdumontblanc.com/)

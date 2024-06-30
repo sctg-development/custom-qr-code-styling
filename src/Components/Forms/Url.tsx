@@ -1,6 +1,7 @@
 import React, { useState, useContext, ReactElement } from 'react'
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
+import { adWebsiteUrl } from '../../configuration'
 
 /**
  * Renders a form for entering a URL and updates the QR code with the entered URL when the form is submitted.
@@ -8,7 +9,7 @@ import Submit from '../Submit'
  * @return {ReactElement} The rendered form component.
  */
 function UrlForm():ReactElement {
-  const [values, setValues] = useState('https://lesailesdumontblanc.com')
+  const [values, setValues] = useState(adWebsiteUrl.url)
   const { qrCode } = useContext(AppContext)
 
 /**

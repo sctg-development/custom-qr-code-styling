@@ -1,5 +1,6 @@
 import React, { createContext, createRef, useEffect } from 'react'
 import {QRCodeStyling} from "@liquid-js/qr-code-styling"
+import { adWebsiteUrl } from './configuration'
 
 const canvasRef = createRef<HTMLDivElement>()
 
@@ -13,7 +14,7 @@ interface ProviderProps {
 }
 
 const qrCode = new QRCodeStyling({
-  data: 'https://lesailesdumontblanc.com',
+  data: adWebsiteUrl.url,
   shape: 'square',
   image: `${window.location.origin}/scanme.svg`,
 
