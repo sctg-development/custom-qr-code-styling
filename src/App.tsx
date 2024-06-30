@@ -102,6 +102,21 @@ const initialOptions: Options = {
   errorCorrectionLevel: 'H'
 }
 
+const basicOptions: Options = {
+  shape: ShapeType.square,
+  size: 1000,
+  removeBrand: true,
+  image: defaultBrand,
+  imageMargin: 10,
+  mainShape: DotType.square,
+  shapeColor: '#000000',
+  squareShape: CornerSquareType.square,
+  squareColor: '#000000',
+  cornersDotShape: CornerDotType.square,
+  cornersDotColor: '#000000',
+  errorCorrectionLevel: 'H'
+}
+
 const savedValues = localStorage.getItem('qr-code')
 const optionsValues: Options = savedValues ? JSON.parse(savedValues) : initialOptions
 
@@ -209,6 +224,13 @@ function App() {
       uploadRef.current.value = ''
     }
     setOptions(initialOptions)
+  }
+
+  const handleBasicOptions = () => {
+    if (uploadRef.current) {
+      uploadRef.current.value = ''
+    }
+    setOptions(basicOptions)
   }
 
   const handleResetImage = () => {
@@ -622,6 +644,9 @@ function App() {
           <div className='d-grid gap-2 d-md-flex justify-content-md-end pt-4'>
             <button className='btn btn-outline-danger me-auto' type='button' onClick={handleResetOptions}>
               Reset
+            </button>
+            <button className='btn btn-outline-danger me-auto' type='button' onClick={handleBasicOptions}>
+              Basic
             </button>
             <button className='btn btn-primary' type='button' onClick={handleSavedValues}>
               Load Saved Style
