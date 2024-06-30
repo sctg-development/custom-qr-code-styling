@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect, useRef, useContext, useReducer, ReactElement } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
-import { DotType, CornerSquareType, CornerDotType, ShapeType } from '@liquid-js/qr-code-styling'
+import { DotType, CornerSquareType, CornerDotType, ShapeType, ErrorCorrectionLevel } from '@liquid-js/qr-code-styling'
 import { AppContext } from './Context'
 import Header from './Components/Header'
 import Tabs from './Components/Tabs'
@@ -89,7 +89,7 @@ interface Options {
   squareColor?: string
   cornersDotShape?: CornerDotType
   cornersDotColor?: string
-  errorCorrectionLevel?: 'L' | 'M' | 'Q' | 'H'
+  errorCorrectionLevel?: ErrorCorrectionLevel
 }
 
 const initialOptions: Options = {
@@ -104,7 +104,7 @@ const initialOptions: Options = {
   squareColor: '#008ADC',
   cornersDotShape: CornerDotType.dot,
   cornersDotColor: '#D90012',
-  errorCorrectionLevel: 'H'
+  errorCorrectionLevel: ErrorCorrectionLevel.H
 }
 
 const basicOptions: Options = {
@@ -119,7 +119,7 @@ const basicOptions: Options = {
   squareColor: '#000000',
   cornersDotShape: CornerDotType.square,
   cornersDotColor: '#000000',
-  errorCorrectionLevel: 'H'
+  errorCorrectionLevel: ErrorCorrectionLevel.H
 }
 
 const savedValues = localStorage.getItem('qr-code')
@@ -335,6 +335,12 @@ function App():ReactElement {
   }, [qrCode, options])
 
   useEffect(() => {
+    /**
+     * A function that handles the click event on the window.
+     *
+     * @param {MouseEvent} event - The MouseEvent object.
+     * @return {void} This function does not return anything.
+     */
     window.onclick = (event: MouseEvent) => {
       if (offcanvas && offcanvasRef.current) {
         if (event.target === offcanvasRef.current) dispatch({ type: 'offcanvas-close' })
@@ -696,10 +702,10 @@ function App():ReactElement {
                     value={options.errorCorrectionLevel}
                     onChange={handleOptions}
                   >
-                    <option value='H'>High</option>
-                    <option value='M'>Medium</option>
-                    <option value='Q'>Basic</option>
-                    <option value='L'>Low</option>
+                    <option value={ErrorCorrectionLevel.H}>High</option>
+                    <option value={ErrorCorrectionLevel.M}>Medium</option>
+                    <option value={ErrorCorrectionLevel.Q}>Basic</option>
+                    <option value={ErrorCorrectionLevel.L}>Low</option>
                   </select>
                 </div>
               </div>
