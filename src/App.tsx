@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect, useRef, useContext, useReducer } from 'react'
-import Dropdown from 'react-bootstrap/NavDropdown'
+import Dropdown from 'react-bootstrap/Dropdown'
 import { DotType, CornerSquareType, CornerDotType, ShapeType } from '@liquid-js/qr-code-styling'
 import { AppContext } from './Context'
 import Header from './Components/Header'
@@ -589,18 +589,22 @@ function App() {
                 <div className='form-text'>Or use an intermal logo.</div>
                 <div className='col-sm-12'>
                   <Dropdown title='Internal logo' id='collapsible-dropdown'>
-                  {embeddedLogos.map((logo) => (
-                      <Dropdown.Item onClick={handleInternalLogo(logo.path)}>
-                      <img
-                        src={logo.path}
-                        width='30'
-                        className='d-inline-block align-top me-2'
-                        alt='React Bootstrap logo'
-                      />
-                      {logo.label}
-                    </Dropdown.Item>
-                    ))}
-                    
+                    <Dropdown.Toggle className='col-sm-12 text-start' variant="secondary" id='dropdown-basic'>
+                      Internal logo
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      {embeddedLogos.map((logo) => (
+                        <Dropdown.Item onClick={handleInternalLogo(logo.path)}>
+                          <img
+                            src={logo.path}
+                            width='30'
+                            className='d-inline-block align-top me-2'
+                            alt='React Bootstrap logo'
+                          />
+                          {logo.label}
+                        </Dropdown.Item>
+                      ))}
+                    </Dropdown.Menu>
                   </Dropdown>
                 </div>
               </div>
