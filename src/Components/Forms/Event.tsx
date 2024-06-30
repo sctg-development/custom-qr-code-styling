@@ -1,17 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
-import { get } from 'http';
-
-/*
-BEGIN:VEVENT
-SUMMARY:Event Title
-DTSTART:20240101T000000Z
-DTEND:20240101T010000Z
-LOCATION:Event Location
-DESCRIPTION:Event Description
-END:VEVENT
-*/
 
 /**
  * Formats the given date into a string with the format YYYYMMDDTHHMMSSZ.
@@ -49,6 +38,8 @@ function addOneHourToDate(date: Date): Date {
 function formatDate(date: Date): string {
   return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}T${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
 }
+
+
 const initialValues = {
   summary: 'Tandem flight with Les Ailes du Mont-Blanc',
   latitude: 45.936562,
@@ -58,6 +49,7 @@ const initialValues = {
   dtstart:  new Date(),
   dtend: addOneHourToDate(new Date())
 }
+
 function EventForm() {
   const [values, setValues] = useState(initialValues)
   const { qrCode } = useContext(AppContext)
