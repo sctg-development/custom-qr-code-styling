@@ -1,7 +1,12 @@
-import React, { useCallback, useContext } from 'react'
+/**
+ * Copyright (c) 2021 - awran5
+ * Copyright (c) 2024 - Ronan Le Meillat
+ * Provided under the MIT License. See License file for details.
+ */
+import React, { ReactElement, useCallback, useContext } from 'react'
 import { AppContext } from '../Context'
 import { browserUtils } from '@liquid-js/qr-code-styling'
-const Download = (): JSX.Element => {
+const Download = (): ReactElement => {
   const { qrCode } = useContext(AppContext)
 
   

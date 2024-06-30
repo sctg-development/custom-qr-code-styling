@@ -1,3 +1,7 @@
+/**
+ * Copyright (c) 2024 - Ronan Le Meillat
+ * Provided under the MIT License. See License file for details.
+ */
 import React, { useState, useContext, ReactElement } from 'react'
 import { AppContext } from '../../Context'
 import Submit from '../Submit'

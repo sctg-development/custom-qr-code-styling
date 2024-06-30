@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2021 - awran5
+ * Copyright (c) 2024 - Ronan Le Meillat
+ * Provided under the MIT License. See License file for details.
+ */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect, useRef, useContext, useReducer, ReactElement } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -23,6 +28,7 @@ type Tab = {
   Component: () => ReactElement
 }
 
+// Active tabs
 const tabs: Tab[] = [
   {
     label: 'URL',
