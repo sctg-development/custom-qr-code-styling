@@ -579,7 +579,7 @@ function App() {
                   Upload your own logo image as .png, .jpg, .gif or .svg file format with a maximum size of 2 MB.
                 </div>
                 <div className='form-text'>Or use an intermal logo.</div>
-                <div className='col-sm-6'>
+                <div className='col-sm-12'>
                   <select
                     id='internalImage'
                     title='Internal Logo'
