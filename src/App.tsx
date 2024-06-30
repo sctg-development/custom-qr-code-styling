@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect, useRef, useContext, useReducer } from 'react'
-import { DotType, CornerSquareType, CornerDotType, ShapeType } from "@liquid-js/qr-code-styling"
+import { DotType, CornerSquareType, CornerDotType, ShapeType } from '@liquid-js/qr-code-styling'
 import { AppContext } from './Context'
 import Header from './Components/Header'
 import Tabs from './Components/Tabs'
@@ -53,7 +53,6 @@ const tabs = [
     label: 'Event',
     Component: EventForm
   }
-
 ]
 
 // All embedded logos
@@ -68,12 +67,12 @@ const embeddedLogos = [
   { path: '/admb-micro-red.svg', label: 'Micro Admb red' },
   { path: '/gin.svg', label: 'Website paraglider' },
   { path: '/wing.svg', label: 'Website wing' },
-  { path: '/scanme.svg', label: 'Scan me' },
-];
+  { path: '/scanme.svg', label: 'Scan me' }
+]
 const defaultBrand = '/admb.svg'
 
 interface Options {
-  shape?: ShapeType,
+  shape?: ShapeType
   size?: number
   removeBrand?: boolean
   image?: string
@@ -83,7 +82,7 @@ interface Options {
   squareShape?: CornerSquareType
   squareColor?: string
   cornersDotShape?: CornerDotType
-  cornersDotColor?: string,
+  cornersDotColor?: string
   errorCorrectionLevel?: 'L' | 'M' | 'Q' | 'H'
 }
 
@@ -148,19 +147,19 @@ function App() {
     offcanvas: false
   })
 
-  const divRef = useRef<HTMLDivElement>(null);
+  const divRef = useRef<HTMLDivElement>(null)
   const offcanvasRef = useRef<HTMLInputElement>(null)
   const uploadRef = useRef<HTMLInputElement>(null)
   const uploadError = useRef('')
 
   const handleOptions = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
     const { name, value, checked, files } = event.target
-    const type:React.HTMLInputTypeAttribute = event.target.type
+    const type: React.HTMLInputTypeAttribute = event.target.type
 
     if (!files) {
       setOptions((prev) => ({
         ...prev,
-        [name]: type === 'checkbox' as React.HTMLInputTypeAttribute ? checked : value
+        [name]: type === ('checkbox' as React.HTMLInputTypeAttribute) ? checked : value
       }))
       return
     }
@@ -188,7 +187,7 @@ function App() {
       }
 
       fileReader.onload = () => {
-        const image  = fileReader.result as string
+        const image = fileReader.result as string
 
         setOptions((prev) => ({
           ...prev,
@@ -248,7 +247,7 @@ function App() {
     const image = options.removeBrand ? '' : options.image
     qrCode.update({
       qrOptions: {
-        errorCorrectionLevel: options.errorCorrectionLevel,
+        errorCorrectionLevel: options.errorCorrectionLevel
       },
       shape: options.shape,
       width: options.size,
@@ -267,10 +266,9 @@ function App() {
         color: options.cornersDotColor
       },
       imageOptions: {
-        margin: options.imageMargin === undefined ? 0 : options.imageMargin/10,
+        margin: options.imageMargin === undefined ? 0 : options.imageMargin / 10
       }
     })
-
   }, [qrCode, options])
 
   useEffect(() => {
@@ -285,33 +283,32 @@ function App() {
   useEffect(() => {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (!mutation.addedNodes) return;
+        if (!mutation.addedNodes) return
         for (let i = 0; i < mutation.addedNodes.length; i++) {
-          const node = mutation.addedNodes[i];
+          const node = mutation.addedNodes[i]
           if (node.nodeName.toLowerCase() === 'svg') {
-            const svg = node as SVGElement;
+            const svg = node as SVGElement
             if (svg.parentElement instanceof SVGElement) {
-              console.log(`Parent is SVG so don't touch it`);
-            }
-            else {
-              console.log(`Parent is not SVG so touch it`);
-              svg.setAttribute('width', '100%');
-              svg.removeAttribute('height');
+              console.log(`Parent is SVG so don't touch it`)
+            } else {
+              console.log(`Parent is not SVG so touch it`)
+              svg.setAttribute('width', '100%')
+              svg.removeAttribute('height')
             }
           }
         }
-      });
-    });
+      })
+    })
 
     if (canvasRef.current) {
       observer.observe(canvasRef.current, {
         childList: true, // observe direct children
-        subtree: true,  // and lower descendants too
-      });
+        subtree: true // and lower descendants too
+      })
     }
 
-    return () => observer.disconnect(); // Clean up
-  }, []);
+    return () => observer.disconnect() // Clean up
+  }, [])
 
   return (
     <div className='d-flex flex-column vh-100 App'>
@@ -321,7 +318,7 @@ function App() {
         <div className='container py-5'>
           <div className='row flex-lg-row-reverse justify-content-between g-5 py-5'>
             <div className='col-12 col-md-4'>
-              <div className='qr-code-container' ref={divRef}>
+              <div className='qr-code-container overflow-scroll' ref={divRef}>
                 <div className='qr-code text-center mx-auto object-fit-contain' ref={canvasRef} />
                 <div className='customization'>
                   <div className='py-5'>
@@ -376,7 +373,13 @@ function App() {
                 <br />
                 and customize it!
               </h1>
-              <p className='lead text-secondary'>Brought to you for free by <a className="text-secondary" href="https://lesailesdumontblanc.com">Les Ailes du Mont-Blanc Paragliding School</a>.</p>
+              <p className='lead text-secondary'>
+                Brought to you for free by{' '}
+                <a className='text-secondary' href='https://lesailesdumontblanc.com'>
+                  Les Ailes du Mont-Blanc Paragliding School
+                </a>
+                .
+              </p>
               <Tabs className='mt-5' tabs={tabs} type='pills' />
             </div>
           </div>
@@ -400,12 +403,12 @@ function App() {
               </label>
               <div className='col-sm-6'>
                 <select
-                id="shape"
-                title='Outer Shape'
-                className="form-select"
-                name="shape"
-                value={options.shape}
-                onChange={handleOptions}
+                  id='shape'
+                  title='Outer Shape'
+                  className='form-select'
+                  name='shape'
+                  value={options.shape}
+                  onChange={handleOptions}
                 >
                   <option value={ShapeType.square}>Square</option>
                   <option value={ShapeType.circle}>Circle</option>
@@ -550,7 +553,6 @@ function App() {
                 Logo
               </label>
               <div className='col-sm-9'>
-
                 <div className='input-group'>
                   <input
                     id='image'
@@ -563,8 +565,9 @@ function App() {
                   />
 
                   <button
-                    className={`input-group-text${uploadRef.current && uploadRef.current.value === '' ? ' disabled' : ''
-                      }`}
+                    className={`input-group-text${
+                      uploadRef.current && uploadRef.current.value === '' ? ' disabled' : ''
+                    }`}
                     onClick={handleResetImage}
                     type='button'
                   >
@@ -575,9 +578,7 @@ function App() {
                 <div className='form-text'>
                   Upload your own logo image as .png, .jpg, .gif or .svg file format with a maximum size of 2 MB.
                 </div>
-                <div className='form-text'>
-                  Or use an intermal logo.
-                </div>
+                <div className='form-text'>Or use an intermal logo.</div>
                 <div className='col-sm-6'>
                   <select
                     id='internalImage'
@@ -632,7 +633,6 @@ function App() {
                     <option value='M'>Medium</option>
                     <option value='Q'>Basic</option>
                     <option value='L'>Low</option>
-
                   </select>
                 </div>
               </div>
