@@ -9,7 +9,7 @@ declare type TabsProps = {
   className?: string
   tabs: {
     label: string
-    Component: (T: { index: number }) => JSX.Element
+    Component: (T: { index: number }) => ReactElement
   }[]
   orientation?: 'horizontal' | 'vertical'
   type?: 'tabs' | 'pills'

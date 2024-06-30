@@ -6,20 +6,22 @@ import { CornerDotType, CornerSquareType, DotType, ErrorCorrectionLevel, ShapeTy
 import { Options } from "./App";
 
 export const adWebsiteUrl = {
-  // The URL of the website (used in the footer and the default QR code data)
+  /** The URL of the website (used in the footer and the default QR code data) */
   url: 'https://lesailesdumontblanc.com',
-  // The name of the website (used in the footer)
+  /** The name of the website (used in the footer) */
   name: 'Les Ailes du Mont-Blanc',
-  // The full name of the website (used in the main paragraph)
+  /** The full name of the website (used in the main paragraph) */
   longName: 'Les Ailes du Mont-Blanc Paragliding School',
-  // The short name of the website (used in the header)
+  /** The short name of the website (used in the header) */
   shortName: 'ADMB',
-  // The logo of the website (used in the header)
+  /** The logo of the website (used in the header) */
   headerLogo: '/admb-white.svg'
 }
 
-// All embedded logos
-// See public directory for the images
+/**
+ * All embedded logos.
+ * See public directory for the images.
+ */
 export const embeddedLogos = [
   { path: '/admb.svg', label: 'Mini Admb light blue' },
   { path: '/admb-navy.svg', label: 'Mini Admb navy blue' },
@@ -33,38 +35,38 @@ export const embeddedLogos = [
   { path: '/scanme.svg', label: 'Scan me' }
 ];
 
-// The default logo
+/**  The default logo */
 export const defaultBrand = '/admb.svg';
 
-// The default QR code customisation options
+/** The default QR code customisation options */ 
 export const initialOptions: Options = {
-  // the shape of the QR code (square or circle)
+  /** The shape of the QR code (square or circle) */
   shape: ShapeType.square,
-  // the size of the QR code for exporting
+  /** The size of the QR code for exporting */
   size: 1000,
-  // if true there is no logo in the center
+  /** If true, there is no logo in the center */
   removeBrand: false,
-  // the logo to be placed in the center (see embeddedLogos for the available options)
+  /** The logo to be placed in the center (see embeddedLogos for the available options) */
   image: defaultBrand,
-  // the margin around the logo
+  /** The margin around the logo */
   imageMargin: 10,
-  // the shape of the main dots ( dot, randomDot, rounded, extraRounded, verticalLine, horizontalLine, classy, classyRounded, square, smallSquare, diamond)
+  /** The shape of the main dots (dot, randomDot, rounded, extraRounded, verticalLine, horizontalLine, classy, classyRounded, square, smallSquare, diamond) */
   mainShape: DotType.dot,
-  // the color of the main dots
+  /** The color of the main dots */
   shapeColor: '#1E2470',
-  // the shape of the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint)
+  /** The shape of the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint) */
   squareShape: CornerSquareType.extraRounded,
-  // the color of the 3 corner zones
+  /** The color of the 3 corner zones */
   squareColor: '#008ADC',
-  // the shape of the dots in the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint)
+  /** The shape of the dots in the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint) */
   cornersDotShape: CornerDotType.dot,
-  // the color of the dots in the 3 corner zones
+  /** The color of the dots in the 3 corner zones */
   cornersDotColor: '#D90012',
-  // the error correction level (L, M, Q, H)
+  /** The error correction level (L, M, Q, H) */
   errorCorrectionLevel: ErrorCorrectionLevel.H
 }
 
-// The basic QR code customisation options (here is a black and white QR code with a square shape)
+/** The basic QR code customisation options (here is a black and white QR code with a square shape) */ 
 export const basicOptions: Options = {
   shape: ShapeType.square,
   size: 1000,
@@ -80,5 +82,7 @@ export const basicOptions: Options = {
   errorCorrectionLevel: ErrorCorrectionLevel.H
 }
 
-// The year the project was created (used in the footer, if the current year is different from the creation year, the years are displayed as a range)
+/** The year the project was created 
+ * (used in the footer, if the current year is different from the creation year, the years are displayed as a range) 
+ */
 export const creationYear = 2024;

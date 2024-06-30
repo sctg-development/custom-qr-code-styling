@@ -4,7 +4,7 @@
  * Provided under the MIT License. See License file for details.
  */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect, useRef, useContext, useReducer, ReactElement } from 'react'
+import React, { useState, useEffect, useRef, useContext, useReducer, ReactElement, LazyExoticComponent } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { DotType, CornerSquareType, CornerDotType, ShapeType, ErrorCorrectionLevel } from '@liquid-js/qr-code-styling'
 import { AppContext } from './Context'
@@ -24,11 +24,12 @@ import EventForm from './Components/Forms/Event'
 import { adWebsiteUrl, basicOptions, defaultBrand, embeddedLogos, initialOptions } from './configuration'
 
 type Tab = {
+  /** The label of the tab. */
   label: 'URL' | 'Text' | 'E-mail' | 'VCard' | 'Place' | 'WiFi' | 'SMS' | 'Phone' | 'Event'
   Component: () => ReactElement
 }
 
-// Active tabs
+/** Active tabs */
 const tabs: Tab[] = [
   {
     label: 'URL',
@@ -69,18 +70,30 @@ const tabs: Tab[] = [
 ]
 
 export interface Options {
-  shape?: ShapeType
-  size?: number
-  removeBrand?: boolean
-  image?: string
-  imageMargin?: number
-  mainShape?: DotType
-  shapeColor?: string
-  squareShape?: CornerSquareType
-  squareColor?: string
-  cornersDotShape?: CornerDotType
-  cornersDotColor?: string
-  errorCorrectionLevel?: ErrorCorrectionLevel
+  /** The shape of the QR code (square or circle) */
+  shape?: ShapeType;
+  /** The size of the QR code for exporting */
+  size?: number;
+  /** If true, there is no logo in the center */
+  removeBrand?: boolean;
+  /** The logo to be placed in the center (see embeddedLogos for the available options) */
+  image?: string;
+  /** The margin around the logo */
+  imageMargin?: number;
+  /** The shape of the main dots (dot, randomDot, rounded, extraRounded, verticalLine, horizontalLine, classy, classyRounded, square, smallSquare, diamond) */
+  mainShape?: DotType;
+  /** The color of the main dots */
+  shapeColor?: string;
+  /** The shape of the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint) */
+  squareShape?: CornerSquareType;
+  /** The color of the 3 corner zones */
+  squareColor?: string;
+  /** The shape of the dots in the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint) */
+  cornersDotShape?: CornerDotType;
+  /** The color of the dots in the 3 corner zones */
+  cornersDotColor?: string;
+  /** The error correction level (L, M, Q, H) */
+  errorCorrectionLevel?: ErrorCorrectionLevel;
 }
 
 
@@ -140,7 +153,7 @@ function App(): ReactElement {
    * @param {string} path - The path of the internal logo image.
    * @return {() => void} A function that sets the options with the new internal logo image path.
    */
-  const handleInternalLogo = (path: string) => () => {
+  const handleInternalLogo = (path: string): () => void => () => {
     setOptions((prev) => ({
       ...prev,
       image: path
@@ -421,7 +434,7 @@ function App(): ReactElement {
                 </a>
                 .
               </p>
-              <Tabs className='mt-5' tabs={tabs} type='pills' />
+              <Tabs className='mt-5' tabs={tabs as any} type='pills' />
             </div>
           </div>
         </div>
@@ -627,7 +640,7 @@ function App(): ReactElement {
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       {embeddedLogos.map((logo) => (
-                        <Dropdown.Item onClick={handleInternalLogo(logo.path)}>
+                        <Dropdown.Item key={logo.path} onClick={handleInternalLogo(logo.path)}>
                           <img
                             src={logo.path}
                             width='30'
