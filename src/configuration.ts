@@ -32,10 +32,13 @@ export const embeddedLogos = [
   { path: '/wing.svg', label: 'Website wing' },
   { path: '/scanme.svg', label: 'Scan me' }
 ];
+
+// The default logo
 export const defaultBrand = '/admb.svg';
 
+// The default QR code customisation options
 export const initialOptions: Options = {
-  // the shape of the QR code
+  // the shape of the QR code (square or circle)
   shape: ShapeType.square,
   // the size of the QR code for exporting
   size: 1000,
@@ -45,15 +48,15 @@ export const initialOptions: Options = {
   image: defaultBrand,
   // the margin around the logo
   imageMargin: 10,
-  // the shape of the main dots
+  // the shape of the main dots ( dot, randomDot, rounded, extraRounded, verticalLine, horizontalLine, classy, classyRounded, square, smallSquare, diamond)
   mainShape: DotType.dot,
   // the color of the main dots
   shapeColor: '#1E2470',
-  // the shape of the 3 corner zones
+  // the shape of the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint)
   squareShape: CornerSquareType.extraRounded,
   // the color of the 3 corner zones
   squareColor: '#008ADC',
-  // the shape of the dots in the 3 corner zones
+  // the shape of the dots in the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint)
   cornersDotShape: CornerDotType.dot,
   // the color of the dots in the 3 corner zones
   cornersDotColor: '#D90012',
@@ -61,6 +64,7 @@ export const initialOptions: Options = {
   errorCorrectionLevel: ErrorCorrectionLevel.H
 }
 
+// The basic QR code customisation options (here is a black and white QR code with a square shape)
 export const basicOptions: Options = {
   shape: ShapeType.square,
   size: 1000,
