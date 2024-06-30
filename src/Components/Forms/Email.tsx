@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, ReactElement } from 'react'
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
@@ -8,7 +8,12 @@ const initialValues = {
   body: ''
 }
 
-const EmailForm = () => {
+/**
+ * Renders an email form component.
+ *
+ * @return {ReactElement} The rendered email form component.
+ */
+const EmailForm = ():ReactElement => {
   const { qrCode } = useContext(AppContext)
   const [values, setValues] = useState(initialValues)
 

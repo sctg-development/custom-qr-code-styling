@@ -1,8 +1,14 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, ReactElement } from 'react'
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
-const TextForm = () => {
+/**
+ * Handles the change event of the textarea input, updating the state with the new value.
+ *
+ * @param {React.ChangeEvent<HTMLTextAreaElement>} event - The event object containing the new value.
+ * @return {ReactElement} This function does not return anything.
+ */
+const TextForm = ():ReactElement => {
   const [values, setValues] = useState('')
   const { qrCode } = useContext(AppContext)
 

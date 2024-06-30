@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, ReactElement } from 'react'
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
@@ -50,11 +50,23 @@ const initialValues = {
   dtend: addOneHourToDate(new Date())
 }
 
-function EventForm() {
+/**
+ * Handles the form submission for creating a QR code event.
+ *
+ * @param {React.FormEvent<HTMLFormElement>} event - The form submission event.
+ * @return {ReactElement} The form element.
+ */
+function EventForm(): ReactElement {
   const [values, setValues] = useState(initialValues)
   const { qrCode } = useContext(AppContext)
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
+  /**
+   * Updates the state with the new value of the input field or checkbox.
+   *
+   * @param {React.ChangeEvent<HTMLInputElement & HTMLSelectElement>} event - The event triggered by the input field or checkbox.
+   * @return {void} This function does not return anything.
+   */
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>): void => {
     const { name, value, checked } = event.target
     const type: React.HTMLInputTypeAttribute = event.target.type
 

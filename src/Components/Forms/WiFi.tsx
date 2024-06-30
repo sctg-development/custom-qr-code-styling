@@ -1,4 +1,4 @@
-import React, { useState, useContext, useReducer } from 'react'
+import React, { useState, useContext, useReducer, ReactElement } from 'react'
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
@@ -42,7 +42,12 @@ const initialValues = {
   hidden: false
 }
 
-const WiFiForm = () => {
+/**
+ * WiFi form component for entering WiFi network details.
+ *
+ * @return {ReactElement} The WiFi form JSX element.
+ */
+const WiFiForm = ():ReactElement => {
   const [values, setValues] = useState(initialValues)
   const [{ isVisible }, dispatch] = useReducer(reducer, {
     isVisible: false

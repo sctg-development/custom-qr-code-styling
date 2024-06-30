@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, ReactElement } from 'react'
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
@@ -20,7 +20,12 @@ const initialValues = {
   website: ''
 }
 
-const VCardForm = () => {
+/**
+ * Renders a form for creating a VCard.
+ *
+ * @return {ReactElement} The VCard form.
+ */
+const VCardForm = ():ReactElement => {
   const [values, setValues] = useState(initialValues)
   const { qrCode } = useContext(AppContext)
 

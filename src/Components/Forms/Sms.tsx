@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, ReactElement } from 'react'
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
@@ -6,7 +6,12 @@ const initialValues = {
   message: 'Please call me back',
   number: '+33620465557'
 }
-function SmsForm() {
+/**
+ * Renders a form for sending an SMS message.
+ *
+ * @return {ReactElement} The rendered form component.
+ */
+function SmsForm():ReactElement {
   const [values, setValues] = useState(initialValues)
   const { qrCode } = useContext(AppContext)
 

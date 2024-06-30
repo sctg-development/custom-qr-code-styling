@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { ReactElement, useReducer } from 'react'
 
 declare type TabsProps = {
   className?: string
@@ -16,6 +16,13 @@ declare type State = {
 
 type Action = { type: 'selected'; payload: number }
 
+/**
+ * Reduces the state based on the given action.
+ *
+ * @param {State} state - The current state.
+ * @param {Action} action - The action to be performed.
+ * @return {State} The updated state.
+ */
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'selected':
@@ -27,7 +34,12 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-const Tabs = ({ className = 'tabs-component', tabs = [], orientation = 'horizontal', type = 'tabs' }: TabsProps) => {
+/**
+ * Renders a tab component with the given tabs, orientation, and type.
+ * @param {TabsProps} props The tabs component properties.
+ * @return {ReactElement} The rendered tab component.
+ */
+const Tabs = ({ className = 'tabs-component', tabs = [], orientation = 'horizontal', type = 'tabs' }: TabsProps): ReactElement => {
   const [{ selected }, dispatch] = useReducer(reducer, {
     selected: 0
   })

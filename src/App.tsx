@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect, useRef, useContext, useReducer } from 'react'
+import React, { useState, useEffect, useRef, useContext, useReducer, ReactElement } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { DotType, CornerSquareType, CornerDotType, ShapeType } from '@liquid-js/qr-code-styling'
 import { AppContext } from './Context'
@@ -17,7 +17,12 @@ import Footer from './Components/Footer'
 import Download from './Components/Download'
 import EventForm from './Components/Forms/Event'
 
-const tabs = [
+type Tab = {
+  label: 'URL' | 'Text' | 'E-mail' | 'VCard' | 'Place' | 'WiFi' | 'SMS' | 'Phone' | 'Event',
+  Component: () => ReactElement
+}
+
+const tabs: Tab[] = [
   {
     label: 'URL',
     Component: UrlForm
@@ -126,6 +131,13 @@ declare type State = {
 
 type Action = { type: 'offcanvas-toggle' } | { type: 'offcanvas-close' }
 
+/**
+ * Reduces the state based on the given action.
+ *
+ * @param {State} state - The current state.
+ * @param {Action} action - The action to be performed.
+ * @return {State} The updated state.
+ */
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'offcanvas-toggle':
@@ -141,7 +153,12 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-function App() {
+/**
+ * Renders the main application component.
+ *
+ * @return {ReactElement} The rendered application component.
+ */
+function App():ReactElement {
   const { qrCode, canvasRef } = useContext(AppContext)
   const [options, setOptions] = useState(optionsValues)
   const [{ offcanvas }, dispatch] = useReducer(reducer, {
@@ -153,6 +170,13 @@ function App() {
   const uploadRef = useRef<HTMLInputElement>(null)
   const uploadError = useRef('')
 
+  /**
+   * A function that handles setting internal logo options.
+   * it is called when user clicks in the dropdown
+   *
+   * @param {string} path - The path of the internal logo image.
+   * @return {() => void} A function that sets the options with the new internal logo image path.
+   */
   const handleInternalLogo = (path: string) => () => {
     setOptions((prev) => ({
       ...prev,
@@ -160,6 +184,12 @@ function App() {
     }))
   }
 
+  /**
+   * Handles the options change event.
+   *
+   * @param {React.ChangeEvent<HTMLInputElement & HTMLSelectElement>} event - The change event object.
+   * @return {void} This function does not return anything but new values are recorded.
+   */
   const handleOptions = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
     const { name, value, checked, files } = event.target
     const type: React.HTMLInputTypeAttribute = event.target.type
@@ -208,7 +238,14 @@ function App() {
 
   const handleOffcanvas = () => dispatch({ type: 'offcanvas-toggle' })
 
-  const handleSave = (event: React.MouseEvent<HTMLButtonElement>) => {
+/**
+ * Handles the save event when the "Save Style" button is clicked.
+ * store the options object as a JSon string in the localstorage
+ *
+ * @param {React.MouseEvent<HTMLButtonElement>} event - The click event object.
+ * @return {void} This function does not return anything.
+ */
+  const handleSave = (event: React.MouseEvent<HTMLButtonElement>):void => {
     const button = event.currentTarget
     button.innerText = 'Saving..'
 
@@ -226,20 +263,38 @@ function App() {
     }
   }
 
-  const handleResetOptions = () => {
+/**
+ * Resets the options and clears the upload ref.
+ * revert the settings to initialOptions
+ *
+ * @return {void} This function does not return anything.
+ */
+  const handleResetOptions = ():void => {
     if (uploadRef.current) {
       uploadRef.current.value = ''
     }
     setOptions(initialOptions)
   }
 
-  const handleBasicOptions = () => {
+  /**
+   * Resets the upload input value and sets the options to basic options.
+   * the basic options are a set for a square, black, standard QRCode
+   * @returns {voide} This function does not return anything.
+   *
+   */
+  const handleBasicOptions = ():void => {
     if (uploadRef.current) {
       uploadRef.current.value = ''
     }
     setOptions(basicOptions)
   }
 
+/**
+ * Resets the image upload and clears the upload error.
+ * It reverts the image to the defaultBrand
+ *
+ * @return {void} This function does not return anything.
+ */
   const handleResetImage = () => {
     if (uploadRef.current) {
       uploadRef.current.value = ''

@@ -1,14 +1,26 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, ReactElement } from 'react'
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
 const initialValues = {
   number: '+33620465557'
 }
-function TelForm() {
+
+/**
+ * Renders a form for entering a telephone number and updating the QR code with the entered number.
+ *
+ * @return {ReactElement} The rendered form component.
+ */
+function TelForm():ReactElement {
   const [values, setValues] = useState(initialValues)
   const { qrCode } = useContext(AppContext)
 
+  /**
+   * Handles the change event for input and select elements.
+   *
+   * @param {React.ChangeEvent<HTMLInputElement & HTMLSelectElement>} event - The change event.
+   * @return {void} No return value.
+   */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
     const { name, value, checked } = event.target
     const type:React.HTMLInputTypeAttribute = event.target.type
@@ -19,7 +31,13 @@ function TelForm() {
     }))
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  /**
+   * Handle form submission for updating qrCode with telephone number data.
+   *
+   * @param {React.FormEvent<HTMLFormElement>} event - The form submission event.
+   * @return {void} No return value.
+   */
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>):void => {
     event.preventDefault()
 
     qrCode.update({
