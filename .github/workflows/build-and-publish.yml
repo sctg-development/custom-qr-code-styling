@@ -26,11 +26,15 @@ jobs:
       env:
         CI: false
 
+    - name: Compress build directory
+      run: zip -r build.zip build
+
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: build
-        path: build
+        name: build.zip
+        path: build.zip
+
     - name: Publish to Cloudflare Pages
       uses: sctg-development/pages-action-without-url@main
       with:
@@ -68,4 +72,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        gh release upload v${{ steps.getdate.outputs.getdate }} build
+        gh release upload v${{ steps.getdate.outputs.getdate }} build.zip
