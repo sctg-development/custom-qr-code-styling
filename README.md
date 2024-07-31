@@ -101,6 +101,10 @@ You can deploy this QR code generator for free using Cloudflare Pages or Azure S
 
 Both platforms offer continuous deployment, automatically rebuilding and redeploying when you push changes to your main branch.
 
+### Prebuilt QR Code Generator
+
+You can also use the prebuilt QR code generator by downloading the latest release and hosting it on any static web hosting service.
+
 ## Contributing
 
 We welcome contributions! Please feel free to submit a Pull Request.
