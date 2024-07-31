@@ -26,6 +26,11 @@ jobs:
       env:
         CI: false
 
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: build
     - name: Publish to Cloudflare Pages
       uses: sctg-development/pages-action-without-url@main
       with:
@@ -34,3 +39,33 @@ jobs:
             projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
             directory: build # e.g. 'dist'
             gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+  create-release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+    - name: Get current date
+      id: getdate
+      run: echo "::set-output name=getdate::$(date +'%Y.%m.%d-%H%M')"
+      
+    - uses: actions/checkout@v4
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ steps.getdate.outputs.getdate }}
+        release_name: Release ${{ steps.getdate.outputs.getdate }}
+        draft: false
+        prerelease: false
+
+    - uses: actions/download-artifact@v4
+
+    - name: Upload Release Assets
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh release upload v${{ steps.getdate.outputs.getdate }} build
