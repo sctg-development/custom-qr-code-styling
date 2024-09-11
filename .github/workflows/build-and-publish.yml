@@ -106,5 +106,5 @@ jobs:
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        tags: v${{ steps.getdate.outputs.getdatewithoutdotsandhiphens }}, latest
-        labels: v${{ steps.getdate.outputs.getdate }}
+        tags: v${{ steps.getdatewithoutdotsandhiphens.outputs.getdatewithoutdotsandhiphens }}, latest
+        labels: v${{ steps.getdatewithoutdotsandhiphens.outputs.getdatewithoutdotsandhiphens }}
