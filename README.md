@@ -66,6 +66,10 @@ Check out the live demo: [QR Code Generator](https://qr.lesailesdumontblanc.com/
 
 4. Open your browser and visit `http://localhost:3000`
 
+## Docker
+
+A docker image is available for this project. It is tagged as `sctg/admb-qr-code:v.......` where `.......` is the version release version without dots nor dashes. 
+
 ## Customization
 
 To customize the QR code generator:
