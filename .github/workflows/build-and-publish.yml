@@ -106,5 +106,5 @@ jobs:
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        tags: v${{ steps.getdatewithoutdotsandhiphens.outputs.getdatewithoutdotsandhiphens }}, latest
+        tags: ${{ secrets.DOCKER_IMAGE }}:v${{ steps.getdatewithoutdotsandhiphens.outputs.getdatewithoutdotsandhiphens }}, ${{ secrets.DOCKER_IMAGE }}:latest
         labels: v${{ steps.getdatewithoutdotsandhiphens.outputs.getdatewithoutdotsandhiphens }}
