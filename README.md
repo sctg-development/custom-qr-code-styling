@@ -15,6 +15,17 @@ Generate modern, styled, and branded QR codes for free! Built with React, based 
 - Easy to use interface
 - Free and open-source
 
+## TL;DR
+
+You can use Docker for running `custom-qr-code-styling` 
+
+```bash
+docker run -p 8888:80 sctg/admb-qr-code
+```
+
+Next, open your browser and visit `http://localhost:8888`
+
+
 ## Live Demo
 
 Check out the live demo: [QR Code Generator](https://qr.lesailesdumontblanc.com/)
