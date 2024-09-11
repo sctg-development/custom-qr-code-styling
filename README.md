@@ -20,7 +20,7 @@ Generate modern, styled, and branded QR codes for free! Built with React, based 
 You can use Docker for running `custom-qr-code-styling` 
 
 ```bash
-docker run -p 8888:80 sctg/admb-qr-code
+docker run -p 8888:80 sctg/admb-qr-code:latest
 ```
 
 Next, open your browser and visit `http://localhost:8888`
