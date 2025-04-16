@@ -62,7 +62,7 @@ export const initialOptions: Options = {
   /** The shape of the dots in the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint) */
   cornersDotShape: CornerDotType.dot,
   /** The color of the dots in the 3 corner zones */
-  cornersDotColor: '#FFF200',
+  cornersDotColor: '#A3DAD4',
   /** The error correction level (L, M, Q, H) */
   errorCorrectionLevel: ErrorCorrectionLevel.H
 }
