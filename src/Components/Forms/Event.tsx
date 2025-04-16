@@ -45,7 +45,7 @@ function formatDate(date: Date): string {
 
 
 const initialValues = {
-  summary: 'Tandem flight with Les Ailes du Mont-Blanc',
+  summary: 'Tandem flight with McFly Paragliding',
   latitude: 45.936562,
   longitude:6.851181,
   description: 'Tandem flight with an instructor',
