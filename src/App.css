@@ -1,13 +1,13 @@
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  background-color: #045bc1;
+  background-color: #00A79D;
 }
 .nav-pills .nav-link {
   border-radius: 0.1875rem;
 }
 .nav-link {
   padding: 0.5rem 1rem;
-  color: #045bc1;
+  color: #00A79D;
 }
 
 .qr-code-container {
@@ -42,17 +42,23 @@
   color: #fff;
 }
 
+.btn-danger {
+  background-color: #8363AA;
+  border-color: #8363AA;
+  box-shadow: none;
+  color: #fff;
+}
 .btn-primary,
 .btn-outline-primary {
-  color: #045bc1;
-  border-color: #045bc1;
+  color: #8363AA;
+  border-color: #8363AA;
 }
 
 .btn-primary,
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: #045bc1;
-  border-color: #045bc1;
+  background-color: #8363AA;
+  border-color: #8363AA;
 }
 
 .btn-close {
@@ -67,6 +73,10 @@
   border: 0;
   border-radius: 0.25rem;
   opacity: 0.5;
+}
+
+.bg-dark {
+  background-color: #b995e5 !important;
 }
 
 hr {

@@ -21,7 +21,7 @@ interface ProviderProps {
 const qrCode = new QRCodeStyling({
   data: adWebsiteUrl.url,
   shape: 'square',
-  image: `${window.location.origin}/scanme.svg`,
+  image: `${window.location.origin}/mcfly.svg`,
 
   imageOptions: {
     crossOrigin: 'anonymous',

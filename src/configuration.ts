@@ -7,15 +7,15 @@ import { Options } from "./App";
 
 export const adWebsiteUrl = {
   /** The URL of the website (used in the footer and the default QR code data) */
-  url: 'https://lesailesdumontblanc.com',
+  url: 'https://mcfly-parapente.com',
   /** The name of the website (used in the footer) */
-  name: 'Les Ailes du Mont-Blanc',
+  name: 'McFly Parapente',
   /** The full name of the website (used in the main paragraph) */
-  longName: 'Les Ailes du Mont-Blanc Paragliding School',
+  longName: 'McFly Paragliding School',
   /** The short name of the website (used in the header) */
-  shortName: 'ADMB',
+  shortName: 'mcfly',
   /** The logo of the website (used in the header) */
-  headerLogo: '/admb-white.svg'
+  headerLogo: '/logo_origami_white_square.svg'
 }
 
 /**
@@ -23,6 +23,7 @@ export const adWebsiteUrl = {
  * See public directory for the images.
  */
 export const embeddedLogos = [
+  { path: '/mcfly.svg', label: 'McFly' },
   { path: '/admb.svg', label: 'Mini Admb light blue' },
   { path: '/admb-navy.svg', label: 'Mini Admb navy blue' },
   { path: '/admb-red.svg', label: 'Mini Admb red' },
@@ -36,7 +37,7 @@ export const embeddedLogos = [
 ];
 
 /**  The default logo */
-export const defaultBrand = '/admb.svg';
+export const defaultBrand = '/mcfly.svg';
 
 /** The default QR code customisation options */ 
 export const initialOptions: Options = {
@@ -51,17 +52,17 @@ export const initialOptions: Options = {
   /** The margin around the logo */
   imageMargin: 10,
   /** The shape of the main dots (dot, randomDot, rounded, extraRounded, verticalLine, horizontalLine, classy, classyRounded, square, smallSquare, diamond) */
-  mainShape: DotType.dot,
+  mainShape: DotType.diamond,
   /** The color of the main dots */
-  shapeColor: '#1E2470',
+  shapeColor: '#8363AA',
   /** The shape of the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint) */
-  squareShape: CornerSquareType.extraRounded,
+  squareShape: CornerSquareType.square,
   /** The color of the 3 corner zones */
-  squareColor: '#008ADC',
+  squareColor: '#00A79D',
   /** The shape of the dots in the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint) */
   cornersDotShape: CornerDotType.dot,
   /** The color of the dots in the 3 corner zones */
-  cornersDotColor: '#D90012',
+  cornersDotColor: '#FFF200',
   /** The error correction level (L, M, Q, H) */
   errorCorrectionLevel: ErrorCorrectionLevel.H
 }
