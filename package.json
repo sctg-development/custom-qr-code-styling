@@ -2,6 +2,7 @@
   "name": "custom-qr-code-styling",
   "version": "0.2.0",
   "private": false,
+  "type":"module",
   "dependencies": {
     "@liquid-js/qr-code-styling": "^4.0.7",
     "bootstrap": "^5.3.5",
