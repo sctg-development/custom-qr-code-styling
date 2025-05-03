@@ -4,7 +4,7 @@
  * Provided under the MIT License. See License file for details.
  */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect, useRef, useContext, useReducer, ReactElement, LazyExoticComponent, lazy, Suspense } from 'react'
+import React, { useState, useEffect, useRef, useContext, useReducer, ReactElement, LazyExoticComponent, lazy, Suspense, useCallback } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { DotType, CornerSquareType, CornerDotType, ShapeType, ErrorCorrectionLevel } from '@liquid-js/qr-code-styling'
 import { AppContext } from './Context'
@@ -167,7 +167,7 @@ function App(): ReactElement {
    * @param {React.ChangeEvent<HTMLInputElement & HTMLSelectElement>} event - The change event object.
    * @return {void} This function does not return anything but new values are recorded.
    */
-  const handleOptions = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
+  const memoizedHandleOptions = useCallback((event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement> ) => {
     const { name, value, checked, files } = event.target
     const type: React.HTMLInputTypeAttribute = event.target.type
 
@@ -211,7 +211,7 @@ function App(): ReactElement {
       }
       fileReader.readAsDataURL(image)
     }
-  }
+  }, [setOptions])
 
   const handleOffcanvas = () => dispatch({ type: 'offcanvas-toggle' })
 
@@ -386,7 +386,7 @@ function App(): ReactElement {
                       max='1500'
                       step='50'
                       value={options.size}
-                      onChange={handleOptions}
+                      onChange={memoizedHandleOptions}
                     />
                     <div className='d-flex justify-content-between small'>
                       <span className='text-muted'>Low Quality</span>
@@ -409,7 +409,7 @@ function App(): ReactElement {
                         type='checkbox'
                         name='removeBrand'
                         checked={options.removeBrand}
-                        onChange={handleOptions}
+                        onChange={memoizedHandleOptions}
                       />
                       <label className='form-check-label' htmlFor='removeBrand'>
                         Remove Brand
@@ -465,7 +465,7 @@ function App(): ReactElement {
                   className='form-select'
                   name='shape'
                   value={options.shape}
-                  onChange={handleOptions}
+                  onChange={memoizedHandleOptions}
                 >
                   <option value={ShapeType.square}>Square</option>
                   <option value={ShapeType.circle}>Circle</option>
@@ -483,7 +483,7 @@ function App(): ReactElement {
                   className='form-select'
                   name='mainShape'
                   value={options.mainShape}
-                  onChange={handleOptions}
+                  onChange={memoizedHandleOptions}
                 >
                   <option value={DotType.square}>Square</option>
                   <option value={DotType.smallSquare}>Small square</option>
@@ -511,7 +511,7 @@ function App(): ReactElement {
                   className='form-control form-control-color'
                   name='shapeColor'
                   type='color'
-                  onChange={handleOptions}
+                  onChange={memoizedHandleOptions}
                   value={options.shapeColor}
                 />
               </div>
@@ -531,7 +531,7 @@ function App(): ReactElement {
                   className='form-select'
                   name='squareShape'
                   value={options.squareShape}
-                  onChange={handleOptions}
+                  onChange={memoizedHandleOptions}
                 >
                   <option value={CornerSquareType.square}>Square</option>
                   <option value={CornerSquareType.dot}>Dot</option>
@@ -554,7 +554,7 @@ function App(): ReactElement {
                   type='color'
                   name='squareColor'
                   value={options.squareColor}
-                  onChange={handleOptions}
+                  onChange={memoizedHandleOptions}
                 />
               </div>
             </div>
@@ -573,7 +573,7 @@ function App(): ReactElement {
                   className='form-select'
                   name='cornersDotShape'
                   value={options.cornersDotShape}
-                  onChange={handleOptions}
+                  onChange={memoizedHandleOptions}
                 >
                   <option value={CornerDotType.square}>Square</option>
                   <option value={CornerDotType.dot}>Dot</option>
@@ -597,7 +597,7 @@ function App(): ReactElement {
                   name='cornersDotColor'
                   type='color'
                   value={options.cornersDotColor}
-                  onChange={handleOptions}
+                  onChange={memoizedHandleOptions}
                 />
               </div>
             </div>
@@ -616,7 +616,7 @@ function App(): ReactElement {
                     id='image'
                     className='form-control'
                     type='file'
-                    onChange={handleOptions}
+                    onChange={memoizedHandleOptions}
                     name='image'
                     ref={uploadRef}
                     accept='.gif,.jpg,.jpeg,.png,.gif,.bmp,.webp,.svg'
@@ -672,7 +672,7 @@ function App(): ReactElement {
                   name='imageMargin'
                   max={100}
                   value={options.imageMargin}
-                  onChange={handleOptions}
+                  onChange={memoizedHandleOptions}
                 />
               </div>
             </div>
@@ -689,7 +689,7 @@ function App(): ReactElement {
                     name='errorCorrectionLevel'
                     title='Error Correction Level'
                     value={options.errorCorrectionLevel}
-                    onChange={handleOptions}
+                    onChange={memoizedHandleOptions}
                   >
                     <option value={ErrorCorrectionLevel.H}>High</option>
                     <option value={ErrorCorrectionLevel.M}>Medium</option>
