@@ -5,6 +5,7 @@
   "dependencies": {
     "@liquid-js/qr-code-styling": "^4.0.7",
     "bootstrap": "^5.3.5",
+    "crypto-js": "^4.2.0",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.1.0"
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@sctg/vite-plugin-github-pages-spa": "^0.1.1",
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^22.15.3",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.3",
