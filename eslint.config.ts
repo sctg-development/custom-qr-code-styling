@@ -50,9 +50,9 @@ export default [
       'jsx-a11y/click-events-have-key-events': 'warn',
       'jsx-a11y/interactive-supports-focus': 'warn',
       'prettier/prettier': 'warn',
-      'no-unused-vars': 'off',
-      'unused-imports/no-unused-vars': 'off',
-      'unused-imports/no-unused-imports': 'warn',
+      'no-unused-vars': 'error',
+      'unused-imports/no-unused-vars': 'error',
+      'unused-imports/no-unused-imports': 'error',
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {

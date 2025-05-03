@@ -38,6 +38,7 @@ const EventForm = lazy(() => import('./Components/Forms/Event'))
 export type Tab = {
   /** The label of the tab. */
   label: 'URL' | 'Text' | 'E-mail' | 'VCard' | 'Place' | 'WiFi' | 'SMS' | 'Phone' | 'Event'
+  /* eslint-disable-next-line no-unused-vars */
   LazyComponent: React.LazyExoticComponent<(T: { index: number }) => ReactElement>
 }
 
