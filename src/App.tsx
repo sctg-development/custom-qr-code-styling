@@ -4,68 +4,69 @@
  * Provided under the MIT License. See License file for details.
  */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect, useRef, useContext, useReducer, ReactElement, LazyExoticComponent } from 'react'
+import React, { useState, useEffect, useRef, useContext, useReducer, ReactElement, LazyExoticComponent, lazy, Suspense } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { DotType, CornerSquareType, CornerDotType, ShapeType, ErrorCorrectionLevel } from '@liquid-js/qr-code-styling'
 import { AppContext } from './Context'
 import Header from './Components/Header'
 import Tabs from './Components/Tabs'
-import TextForm from './Components/Forms/Text'
-import UrlForm from './Components/Forms/Url'
-import SmsForm from './Components/Forms/Sms'
-import GeoForm from './Components/Forms/Geo'
-import TelForm from './Components/Forms/Tel'
-import EmailForm from './Components/Forms/Email'
-import VCardForm from './Components/Forms/VCard'
-import WiFiForm from './Components/Forms/WiFi'
 import Footer from './Components/Footer'
 import Download from './Components/Download'
-import EventForm from './Components/Forms/Event'
 import { adWebsiteUrl, basicOptions, defaultBrand, embeddedLogos, initialOptions } from './configuration'
 
-type Tab = {
+const TextForm = lazy(() => import('./Components/Forms/Text'))
+const UrlForm = lazy(() => import('./Components/Forms/Url'))
+const SmsForm = lazy(() => import('./Components/Forms/Sms'))
+const GeoForm = lazy(() => import('./Components/Forms/Geo'))
+const TelForm = lazy(() => import('./Components/Forms/Tel'))
+const EmailForm = lazy(() => import('./Components/Forms/Email'))
+const VCardForm = lazy(() => import('./Components/Forms/VCard'))
+const WiFiForm = lazy(() => import('./Components/Forms/WiFi'))
+const EventForm = lazy(() => import('./Components/Forms/Event'))
+
+export type Tab = {
   /** The label of the tab. */
   label: 'URL' | 'Text' | 'E-mail' | 'VCard' | 'Place' | 'WiFi' | 'SMS' | 'Phone' | 'Event'
-  Component: () => ReactElement
+  LazyComponent: React.LazyExoticComponent<(T: { index: number }) => ReactElement>
 }
 
 /** Active tabs */
 const tabs: Tab[] = [
   {
     label: 'URL',
-    Component: UrlForm
+    LazyComponent: UrlForm
   },
   {
     label: 'Text',
-    Component: TextForm
+    LazyComponent: TextForm
   },
   {
     label: 'E-mail',
-    Component: EmailForm
+    LazyComponent: EmailForm
   },
   {
     label: 'VCard',
-    Component: VCardForm
+    LazyComponent: VCardForm
   },
   {
     label: 'Place',
-    Component: GeoForm
+    LazyComponent: GeoForm
   },
   {
     label: 'WiFi',
-    Component: WiFiForm
+    LazyComponent: WiFiForm
   },
   {
     label: 'SMS',
-    Component: SmsForm
+    LazyComponent: SmsForm
   },
   {
     label: 'Phone',
-    Component: TelForm
+    LazyComponent: TelForm
   },
   {
     label: 'Event',
-    Component: EventForm
+    LazyComponent: EventForm
   }
 ]
 
@@ -434,7 +435,9 @@ function App(): ReactElement {
                 </a>
                 .
               </p>
-              <Tabs className='mt-5' tabs={tabs as any} type='pills' />
+              <Suspense fallback={<button className='mt-5 nav nav-link' type='button' role='tab' aria-selected="true">Loading...</button>}>
+                <Tabs className='mt-5' tabs={tabs} type='pills' />
+              </Suspense>
             </div>
           </div>
         </div>

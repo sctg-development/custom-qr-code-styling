@@ -4,13 +4,11 @@
  * Provided under the MIT License. See License file for details.
  */
 import React, { ReactElement, useReducer } from 'react'
+import { Tab } from '../App'
 
 declare type TabsProps = {
   className?: string
-  tabs: {
-    label: string
-    Component: (T: { index: number }) => ReactElement
-  }[]
+  tabs: Tab[]
   orientation?: 'horizontal' | 'vertical'
   type?: 'tabs' | 'pills'
 }
@@ -82,7 +80,7 @@ const Tabs = ({ className = 'tabs-component', tabs = [], orientation = 'horizont
           role='tabpanel'
           aria-labelledby={`tab-${selected}`}
         >
-          {Panel?.Component && <Panel.Component index={selected} />}
+          {Panel?.LazyComponent && <Panel.LazyComponent index={selected} />}
         </div>
       </div>
     </div>
