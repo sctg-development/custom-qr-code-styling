@@ -1,22 +1,21 @@
 /**
  * Copyright (c) 2021 - awran5
- * Copyright (c) 2024 - Ronan Le Meillat
+ * Copyright (c) 2024-2025 - Ronan Le Meillat
  * Provided under the MIT License. See License file for details.
  */
-import React, { useState, useContext, ReactElement } from 'react'
+import React, { useState, ReactElement } from 'react'
 
-import { AppContext } from '../../Context'
+import { useQrCode } from '../../hooks/useQrCode'
 import Submit from '../Submit'
 
 /**
  * Handles the change event of the textarea input, updating the state with the new value.
  *
- * @param {React.ChangeEvent<HTMLTextAreaElement>} event - The event object containing the new value.
- * @return {ReactElement} This function does not return anything.
+ * @return {ReactElement} The rendered form component.
  */
 const TextForm = (): ReactElement => {
   const [values, setValues] = useState('')
-  const { qrCode } = useContext(AppContext)
+  const { qrCode } = useQrCode()
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValues(event.target.value)

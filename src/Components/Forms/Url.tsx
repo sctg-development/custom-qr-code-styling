@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2021 - awran5
- * Copyright (c) 2024 - Ronan Le Meillat
+ * Copyright (c) 2024-2025 - Ronan Le Meillat
  * Provided under the MIT License. See License file for details.
  */
-import React, { useState, useContext, ReactElement } from 'react'
+import React, { useState, ReactElement } from 'react'
 
-import { AppContext } from '../../Context'
+import { useQrCode } from '../../hooks/useQrCode'
 import Submit from '../Submit'
 import { adWebsiteUrl } from '../../configuration'
 
@@ -16,7 +16,7 @@ import { adWebsiteUrl } from '../../configuration'
  */
 function UrlForm(): ReactElement {
   const [values, setValues] = useState(adWebsiteUrl.url)
-  const { qrCode } = useContext(AppContext)
+  const { qrCode } = useQrCode()
 
   /**
    * Updates the values state with the new value from the input element.
