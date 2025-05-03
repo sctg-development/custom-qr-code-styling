@@ -8,8 +8,8 @@ import { useQrCode } from '../../hooks/useQrCode'
 import Submit from '../Submit'
 
 const initialValues = {
-  latitude: 45.926436,
-  longitude: 6.8676
+  latitude: 45.9183186,
+  longitude: 6.8664462
 }
 
 /**

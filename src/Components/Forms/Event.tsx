@@ -46,8 +46,8 @@ function formatDate(date: Date): string {
 
 const initialValues = {
   summary: 'Tandem flight with McFly Paragliding',
-  latitude: 45.936562,
-  longitude: 6.851181,
+  latitude: 45.9183186,
+  longitude: 6.8664462,
   description: 'Tandem flight with an instructor',
   location: "29 Rte Henriette d'Angeville, 74400 Chamonix-Mont-Blanc",
   dtstart: new Date(),
