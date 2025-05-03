@@ -484,6 +484,7 @@ function App(): ReactElement {
                 >
                   <option value={DotType.square}>Square</option>
                   <option value={DotType.smallSquare}>Small square</option>
+                  <option value={DotType.tinySquare}>Tiny square</option>
                   <option value={DotType.dot}>Dots</option>
                   <option value={DotType.randomDot}>Random dots</option>
                   <option value={DotType.rounded}>Rounded</option>
