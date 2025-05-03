@@ -4,26 +4,16 @@
  * Provided under the MIT License. See License file for details.
  */
 
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useContext,
-  useReducer,
-  ReactElement,
-  lazy,
-  Suspense,
-  useCallback
-} from 'react'
+import React, { useEffect, useRef, useContext, useReducer, ReactElement, lazy, Suspense, useCallback } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { DotType, CornerSquareType, CornerDotType, ShapeType, ErrorCorrectionLevel } from '@liquid-js/qr-code-styling'
 
-import { AppContext } from './Context'
+import { AppContext, Options } from './Context'
 import Header from './Components/Header'
 import Tabs from './Components/Tabs'
 import Footer from './Components/Footer'
 import Download from './Components/Download'
-import { adWebsiteUrl, basicOptions, defaultBrand, embeddedLogos, initialOptions } from './configuration'
+import { adWebsiteUrl, embeddedLogos } from './configuration'
 
 const TextForm = lazy(() => import('./Components/Forms/Text'))
 const UrlForm = lazy(() => import('./Components/Forms/Url'))
@@ -82,36 +72,6 @@ const tabs: Tab[] = [
   }
 ]
 
-export interface Options {
-  /** The shape of the QR code (square or circle) */
-  shape?: ShapeType
-  /** The size of the QR code for exporting */
-  size?: number
-  /** If true, there is no logo in the center */
-  removeBrand?: boolean
-  /** The logo to be placed in the center (see embeddedLogos for the available options) */
-  image?: string
-  /** The margin around the logo */
-  imageMargin?: number
-  /** The shape of the main dots (dot, randomDot, rounded, extraRounded, verticalLine, horizontalLine, classy, classyRounded, square, smallSquare, diamond) */
-  mainShape?: DotType
-  /** The color of the main dots */
-  shapeColor?: string
-  /** The shape of the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint) */
-  squareShape?: CornerSquareType
-  /** The color of the 3 corner zones */
-  squareColor?: string
-  /** The shape of the dots in the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint) */
-  cornersDotShape?: CornerDotType
-  /** The color of the dots in the 3 corner zones */
-  cornersDotColor?: string
-  /** The error correction level (L, M, Q, H) */
-  errorCorrectionLevel?: ErrorCorrectionLevel
-}
-
-const savedValues = localStorage.getItem('qr-code')
-const optionsValues: Options = savedValues ? JSON.parse(savedValues) : initialOptions
-
 declare type State = {
   offcanvas: boolean
 }
@@ -146,8 +106,17 @@ function reducer(state: State, action: Action): State {
  * @return {ReactElement} The rendered application component.
  */
 function App(): ReactElement {
-  const { qrCode, canvasRef } = useContext(AppContext)
-  const [options, setOptions] = useState(optionsValues)
+  const {
+    canvasRef,
+    options,
+    updateOption,
+    resetOptions,
+    setBasicOptions,
+    saveOptions,
+    loadSavedOptions,
+    setImageOption
+  } = useContext(AppContext)
+
   const [{ offcanvas }, dispatch] = useReducer(reducer, {
     offcanvas: false
   })
@@ -167,10 +136,7 @@ function App(): ReactElement {
   const handleInternalLogo =
     (path: string): (() => void) =>
     () => {
-      setOptions((prev) => ({
-        ...prev,
-        image: path
-      }))
+      setImageOption(path)
     }
 
   /**
@@ -185,10 +151,9 @@ function App(): ReactElement {
       const type: React.HTMLInputTypeAttribute = event.target.type
 
       if (!files) {
-        setOptions((prev) => ({
-          ...prev,
-          [name]: type === ('checkbox' as React.HTMLInputTypeAttribute) ? checked : value
-        }))
+        const optionValue = type === ('checkbox' as React.HTMLInputTypeAttribute) ? checked : value
+
+        updateOption(name as keyof Options, optionValue)
 
         return
       }
@@ -221,15 +186,12 @@ function App(): ReactElement {
         fileReader.onload = () => {
           const image = fileReader.result as string
 
-          setOptions((prev) => ({
-            ...prev,
-            image: image
-          }))
+          updateOption('image', image)
         }
         fileReader.readAsDataURL(image)
       }
     },
-    [setOptions]
+    [updateOption]
   )
 
   const handleOffcanvas = () => dispatch({ type: 'offcanvas-toggle' })
@@ -250,46 +212,7 @@ function App(): ReactElement {
       button.innerText = 'Save Style'
     }, 1000)
 
-    localStorage.setItem('qr-code', JSON.stringify(options))
-    //console.log(JSON.stringify(options))
-  }
-
-  /**
-   * Handles the saved values by parsing the JSON string stored in the local storage
-   * and setting the options state with the parsed values.
-   *
-   * @return {void} This function does not return anything.
-   */
-  const handleSavedValues = (): void => {
-    if (savedValues) {
-      setOptions(JSON.parse(savedValues))
-    }
-  }
-
-  /**
-   * Resets the options and clears the upload ref.
-   * revert the settings to initialOptions
-   *
-   * @return {void} This function does not return anything.
-   */
-  const handleResetOptions = (): void => {
-    if (uploadRef.current) {
-      uploadRef.current.value = ''
-    }
-    setOptions(initialOptions)
-  }
-
-  /**
-   * Resets the upload input value and sets the options to basic options.
-   * the basic options are a set for a square, black, standard QRCode
-   * @returns {voide} This function does not return anything.
-   *
-   */
-  const handleBasicOptions = (): void => {
-    if (uploadRef.current) {
-      uploadRef.current.value = ''
-    }
-    setOptions(basicOptions)
+    saveOptions()
   }
 
   /**
@@ -302,44 +225,9 @@ function App(): ReactElement {
     if (uploadRef.current) {
       uploadRef.current.value = ''
       uploadError.current = ''
-      setOptions((prev) => ({
-        ...prev,
-        image: defaultBrand
-      }))
+      updateOption('image', '')
     }
   }
-
-  /**
-   * Effect hook to update the QR code with the new options.
-   */
-  useEffect(() => {
-    const image = options.removeBrand ? '' : options.image
-
-    qrCode.update({
-      qrOptions: {
-        errorCorrectionLevel: options.errorCorrectionLevel
-      },
-      shape: options.shape,
-      width: options.size,
-      height: options.size,
-      image: image,
-      dotsOptions: {
-        type: options.mainShape,
-        color: options.shapeColor
-      },
-      cornersSquareOptions: {
-        type: options.squareShape,
-        color: options.squareColor
-      },
-      cornersDotOptions: {
-        type: options.cornersDotShape,
-        color: options.cornersDotColor
-      },
-      imageOptions: {
-        margin: options.imageMargin === undefined ? 0 : options.imageMargin / 10
-      }
-    })
-  }, [qrCode, options])
 
   useEffect(() => {
     /**
@@ -388,7 +276,7 @@ function App(): ReactElement {
     }
 
     return () => observer.disconnect() // Clean up
-  }, [])
+  }, [canvasRef])
 
   return (
     <div className='d-flex flex-column vh-100 App'>
@@ -735,13 +623,13 @@ function App(): ReactElement {
           <hr />
 
           <div className='d-grid gap-2 d-md-flex justify-content-md-end pt-4'>
-            <button className='btn btn-outline-danger me-auto' type='button' onClick={handleResetOptions}>
+            <button className='btn btn-outline-danger me-auto' type='button' onClick={resetOptions}>
               Reset
             </button>
-            <button className='btn btn-outline-danger me-auto' type='button' onClick={handleBasicOptions}>
+            <button className='btn btn-outline-danger me-auto' type='button' onClick={setBasicOptions}>
               Basic
             </button>
-            <button className='btn btn-primary' type='button' onClick={handleSavedValues}>
+            <button className='btn btn-primary' type='button' onClick={loadSavedOptions}>
               Load Saved Style
             </button>
             <button className='btn btn-success' type='button' onClick={handleSave}>

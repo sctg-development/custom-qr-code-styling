@@ -3,16 +3,24 @@
  * Copyright (c) 2024-2025 - Ronan Le Meillat
  * Provided under the MIT License. See License file for details.
  */
-import React, { ReactElement, useCallback, useContext } from 'react'
+import { ReactElement, useCallback, useContext } from 'react'
 import { browserUtils, FileExtension } from '@liquid-js/qr-code-styling'
 
 import { AppContext } from '../Context'
+
 const Download = (): ReactElement => {
-  const { qrCode } = useContext(AppContext)
+  const { qrCode, options } = useContext(AppContext)
 
   const handleDownload = useCallback(
-    (extension: FileExtension) => browserUtils?.download(qrCode, { extension, name: 'QRCode' }),
-    [qrCode]
+    (extension: FileExtension) => {
+      const size = options.size || 1000
+
+      // eslint-disable-next-line no-console
+      console.log(`Downloading QR Code at size: ${size}x${size}`)
+
+      return browserUtils?.download(qrCode, { extension, name: 'QRCode' }, { width: size, height: size })
+    },
+    [qrCode, options.size]
   )
 
   return (
