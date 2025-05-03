@@ -1,8 +1,9 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { githubPagesSpa } from "@sctg/vite-plugin-github-pages-spa";
-import { resolve } from 'path';
+import { resolve } from 'path'
+
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tsconfigPaths from 'vite-tsconfig-paths'
+import { githubPagesSpa } from '@sctg/vite-plugin-github-pages-spa'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,10 +14,10 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: 'build', // To match CRA output folder
+    outDir: 'build' // To match CRA output folder
   },
   server: {
     port: 3000, // To match default CRA port
     open: true
   }
-});
+})

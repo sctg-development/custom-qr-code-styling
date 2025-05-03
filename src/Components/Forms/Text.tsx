@@ -4,6 +4,7 @@
  * Provided under the MIT License. See License file for details.
  */
 import React, { useState, useContext, ReactElement } from 'react'
+
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
@@ -13,7 +14,7 @@ import Submit from '../Submit'
  * @param {React.ChangeEvent<HTMLTextAreaElement>} event - The event object containing the new value.
  * @return {ReactElement} This function does not return anything.
  */
-const TextForm = ():ReactElement => {
+const TextForm = (): ReactElement => {
   const [values, setValues] = useState('')
   const { qrCode } = useContext(AppContext)
 
@@ -33,14 +34,14 @@ const TextForm = ():ReactElement => {
     <form className='qrForm-text' onSubmit={handleSubmit}>
       <div className='form-floating mb-3'>
         <textarea
-          id='text'
-          className='form-control'
-          name='text'
-          value={values}
-          cols={3}
-          onChange={handleChange}
-          placeholder='Add Text'
           required
+          className='form-control'
+          cols={3}
+          id='text'
+          name='text'
+          placeholder='Add Text'
+          value={values}
+          onChange={handleChange}
         />
         <label htmlFor='text'>Add Text</label>
       </div>

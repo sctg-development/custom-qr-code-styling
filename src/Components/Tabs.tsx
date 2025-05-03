@@ -4,6 +4,7 @@
  * Provided under the MIT License. See License file for details.
  */
 import React, { ReactElement, useReducer } from 'react'
+
 import { Tab } from '../App'
 
 declare type TabsProps = {
@@ -42,7 +43,12 @@ function reducer(state: State, action: Action): State {
  * @param {TabsProps} props The tabs component properties.
  * @return {ReactElement} The rendered tab component.
  */
-const Tabs = ({ className = 'tabs-component', tabs = [], orientation = 'horizontal', type = 'tabs' }: TabsProps): ReactElement => {
+const Tabs = ({
+  className = 'tabs-component',
+  tabs = [],
+  orientation = 'horizontal',
+  type = 'tabs'
+}: TabsProps): ReactElement => {
   const [{ selected }, dispatch] = useReducer(reducer, {
     selected: 0
   })
@@ -52,20 +58,20 @@ const Tabs = ({ className = 'tabs-component', tabs = [], orientation = 'horizont
   return (
     <div className={`${orientation === 'vertical' ? 'd-flex align-items-start ' : ''} ${className}`}>
       <div
-        className={`nav${orientation === 'vertical' ? ' flex-column col-3 nav-pills me-4' : ` nav-${type} mb-4`}`}
         aria-orientation={orientation}
+        className={`nav${orientation === 'vertical' ? ' flex-column col-3 nav-pills me-4' : ` nav-${type} mb-4`}`}
         role='tablist'
       >
         {tabs.map((tab, index) => (
           <button
             key={tab.label}
-            id={`tab-${index}`}
+            aria-controls={`pane-${index}`}
+            aria-selected={selected === index}
             className={selected === index ? 'nav-link active' : 'nav-link'}
-            type='button'
+            id={`tab-${index}`}
             role='tab'
             tabIndex={selected === index ? 0 : -1}
-            aria-selected={selected === index}
-            aria-controls={`pane-${index}`}
+            type='button'
             onClick={() => dispatch({ type: 'selected', payload: index })}
           >
             {tab.label}
@@ -75,10 +81,10 @@ const Tabs = ({ className = 'tabs-component', tabs = [], orientation = 'horizont
 
       <div className={`tab-content${orientation === 'vertical' ? ' col-9' : ''}`}>
         <div
-          id={`pane-${selected}`}
-          className='tab-pane fade show active'
-          role='tabpanel'
           aria-labelledby={`tab-${selected}`}
+          className='tab-pane fade show active'
+          id={`pane-${selected}`}
+          role='tabpanel'
         >
           {Panel?.LazyComponent && <Panel.LazyComponent index={selected} />}
         </div>
@@ -86,4 +92,5 @@ const Tabs = ({ className = 'tabs-component', tabs = [], orientation = 'horizont
     </div>
   )
 }
+
 export default Tabs

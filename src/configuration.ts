@@ -2,8 +2,9 @@
  * Copyright (c) 2024 - Ronan Le Meillat
  * Provided under the MIT License. See License file for details.
  */
-import { CornerDotType, CornerSquareType, DotType, ErrorCorrectionLevel, ShapeType } from "@liquid-js/qr-code-styling";
-import { Options } from "./App";
+import { CornerDotType, CornerSquareType, DotType, ErrorCorrectionLevel, ShapeType } from '@liquid-js/qr-code-styling'
+
+import { Options } from './App'
 
 export const adWebsiteUrl = {
   /** The URL of the website (used in the footer and the default QR code data) */
@@ -34,12 +35,12 @@ export const embeddedLogos = [
   { path: '/gin.svg', label: 'Website paraglider' },
   { path: '/wing.svg', label: 'Website wing' },
   { path: '/scanme.svg', label: 'Scan me' }
-];
+]
 
 /**  The default logo */
-export const defaultBrand = '/mcfly.svg';
+export const defaultBrand = '/mcfly.svg'
 
-/** The default QR code customisation options */ 
+/** The default QR code customisation options */
 export const initialOptions: Options = {
   /** The shape of the QR code (square or circle) */
   shape: ShapeType.square,
@@ -67,7 +68,7 @@ export const initialOptions: Options = {
   errorCorrectionLevel: ErrorCorrectionLevel.H
 }
 
-/** The basic QR code customisation options (here is a black and white QR code with a square shape) */ 
+/** The basic QR code customisation options (here is a black and white QR code with a square shape) */
 export const basicOptions: Options = {
   shape: ShapeType.square,
   size: 1000,
@@ -83,7 +84,7 @@ export const basicOptions: Options = {
   errorCorrectionLevel: ErrorCorrectionLevel.H
 }
 
-/** The year the project was created 
- * (used in the footer, if the current year is different from the creation year, the years are displayed as a range) 
+/** The year the project was created
+ * (used in the footer, if the current year is different from the creation year, the years are displayed as a range)
  */
-export const creationYear = 2024;
+export const creationYear = 2024

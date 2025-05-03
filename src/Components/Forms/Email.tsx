@@ -4,6 +4,7 @@
  * Provided under the MIT License. See License file for details.
  */
 import React, { useState, useContext, ReactElement } from 'react'
+
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
@@ -18,12 +19,13 @@ const initialValues = {
  *
  * @return {ReactElement} The rendered email form component.
  */
-const EmailForm = ():ReactElement => {
+const EmailForm = (): ReactElement => {
   const { qrCode } = useContext(AppContext)
   const [values, setValues] = useState(initialValues)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target
+
     setValues((prev) => ({
       ...prev,
       [name]: value
@@ -46,38 +48,38 @@ const EmailForm = ():ReactElement => {
     <form className='qrForm-email' onSubmit={handleSubmit}>
       <div className='form-floating mb-3'>
         <input
-          id='eEmail'
+          required
           className='form-control'
-          type='email'
+          id='eEmail'
           name='email'
+          placeholder='Email'
+          type='email'
           value={values.email}
           onChange={handleChange}
-          placeholder='Email'
-          required
         />
         <label htmlFor='email'>Email</label>
       </div>
       <div className='form-floating mb-3'>
         <input
-          id='eSubject'
           className='form-control'
-          type='text'
+          id='eSubject'
           name='subject'
+          placeholder='Subject'
+          type='text'
           value={values.subject}
           onChange={handleChange}
-          placeholder='Subject'
         />
         <label htmlFor='subject'>Subject</label>
       </div>
       <div className='form-floating mb-3'>
         <textarea
-          id='body'
           className='form-control'
+          id='body'
           name='body'
+          placeholder='Message'
           rows={3}
           value={values.body}
           onChange={handleChange}
-          placeholder='Message'
         />
         <label htmlFor='body'>Message</label>
       </div>

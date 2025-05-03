@@ -3,6 +3,7 @@
  * Provided under the MIT License. See License file for details.
  */
 import React, { useState, useContext, ReactElement } from 'react'
+
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
@@ -13,14 +14,14 @@ import Submit from '../Submit'
  * @return {string} The formatted date string.
  */
 function getCurrentDateFormatted(now: Date): string {
-  const year = now.getUTCFullYear();
-  const month = (now.getUTCMonth() + 1).toString().padStart(2, '0');
-  const day = now.getUTCDate().toString().padStart(2, '0');
-  const hours = now.getUTCHours().toString().padStart(2, '0');
-  const minutes = now.getUTCMinutes().toString().padStart(2, '0');
-  const seconds = now.getUTCSeconds().toString().padStart(2, '0');
+  const year = now.getUTCFullYear()
+  const month = (now.getUTCMonth() + 1).toString().padStart(2, '0')
+  const day = now.getUTCDate().toString().padStart(2, '0')
+  const hours = now.getUTCHours().toString().padStart(2, '0')
+  const minutes = now.getUTCMinutes().toString().padStart(2, '0')
+  const seconds = now.getUTCSeconds().toString().padStart(2, '0')
 
-  return `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
+  return `${year}${month}${day}T${hours}${minutes}${seconds}Z`
 }
 
 /**
@@ -30,7 +31,7 @@ function getCurrentDateFormatted(now: Date): string {
  * @return {Date} The new date after adding one hour.
  */
 function addOneHourToDate(date: Date): Date {
-  return new Date(date.getTime() + 60 * 60 * 1000);
+  return new Date(date.getTime() + 60 * 60 * 1000)
 }
 
 /**
@@ -40,17 +41,16 @@ function addOneHourToDate(date: Date): Date {
  * @return {string} The formatted date string.
  */
 function formatDate(date: Date): string {
-  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}T${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}T${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`
 }
-
 
 const initialValues = {
   summary: 'Tandem flight with McFly Paragliding',
   latitude: 45.936562,
-  longitude:6.851181,
+  longitude: 6.851181,
   description: 'Tandem flight with an instructor',
   location: "29 Rte Henriette d'Angeville, 74400 Chamonix-Mont-Blanc",
-  dtstart:  new Date(),
+  dtstart: new Date(),
   dtend: addOneHourToDate(new Date())
 }
 
@@ -100,92 +100,92 @@ END:VEVENT`
     <form className='qrForm-url' onSubmit={handleSubmit}>
       <div className='form-floating mb-3'>
         <input
-          id='summary'
+          required
           className='form-control'
-          type='text'
+          id='summary'
           name='summary'
+          placeholder='Summary'
+          type='text'
           value={values.summary}
           onChange={handleChange}
-          placeholder='Summary'
-          required
         />
         <label htmlFor='summary'>Summary</label>
       </div>
       <div className='form-floating mb-3'>
         <input
-          id='description'
+          required
           className='form-control'
-          type='text'
+          id='description'
           name='description'
+          placeholder='Description'
+          type='text'
           value={values.description}
           onChange={handleChange}
-          placeholder='Description'
-          required
         />
         <label htmlFor='description'>Description</label>
       </div>
       <div className='form-floating mb-3'>
         <input
-          id='latitude'
+          required
           className='form-control'
-          type='number'
+          id='latitude'
           name='latitude'
+          placeholder='Latitude (in decimal)'
+          type='number'
           value={values.latitude}
           onChange={handleChange}
-          placeholder='Latitude (in decimal)'
-          required
         />
         <label htmlFor='latitude'>Latitude (in decimal)</label>
       </div>
       <div className='form-floating mb-3'>
         <input
-          id='longitude'
+          required
           className='form-control'
-          type='number'
+          id='longitude'
           name='longitude'
+          placeholder='Longitude (in decimal)'
+          type='number'
           value={values.longitude}
           onChange={handleChange}
-          placeholder='Longitude (in decimal)'
-          required
         />
         <label htmlFor='longitude'>Longitude (in decimal)</label>
       </div>
       <div className='form-floating mb-3'>
         <input
-          id='dtstart'
+          required
           className='form-control'
-          type='datetime-local'
+          id='dtstart'
           name='dtstart'
+          placeholder='Start date'
+          type='datetime-local'
           value={formatDate(values.dtstart)}
           onChange={handleChange}
-          placeholder='Start date'
-          required
         />
         <label htmlFor='dtstart'>Start date</label>
       </div>
       <div className='form-floating mb-3'>
         <input
-          id='location'
+          required
           className='form-control'
-          type='text'
+          id='location'
           name='location'
+          placeholder='Location in text form'
+          type='text'
           value={values.location}
           onChange={handleChange}
-          placeholder='Location in text form'
-          required
         />
         <label htmlFor='location'>Address</label>
       </div>
       <div className='form-floating mb-3'>
         <input
-          id='dtend'
+          required
           className='form-control'
-          type='datetime-local'
+          id='dtend'
           name='dtend'
+          placeholder='End date'
+          type='datetime-local'
           value={formatDate(values.dtend)}
           onChange={handleChange}
-          placeholder='End date'
-          required
         />
         <label htmlFor='dtend'>End date</label>
       </div>

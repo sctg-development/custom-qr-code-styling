@@ -3,10 +3,21 @@
  * Copyright (c) 2024 - Ronan Le Meillat
  * Provided under the MIT License. See License file for details.
  */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect, useRef, useContext, useReducer, ReactElement, LazyExoticComponent, lazy, Suspense, useCallback } from 'react'
+
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+  useReducer,
+  ReactElement,
+  lazy,
+  Suspense,
+  useCallback
+} from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { DotType, CornerSquareType, CornerDotType, ShapeType, ErrorCorrectionLevel } from '@liquid-js/qr-code-styling'
+
 import { AppContext } from './Context'
 import Header from './Components/Header'
 import Tabs from './Components/Tabs'
@@ -72,32 +83,30 @@ const tabs: Tab[] = [
 
 export interface Options {
   /** The shape of the QR code (square or circle) */
-  shape?: ShapeType;
+  shape?: ShapeType
   /** The size of the QR code for exporting */
-  size?: number;
+  size?: number
   /** If true, there is no logo in the center */
-  removeBrand?: boolean;
+  removeBrand?: boolean
   /** The logo to be placed in the center (see embeddedLogos for the available options) */
-  image?: string;
+  image?: string
   /** The margin around the logo */
-  imageMargin?: number;
+  imageMargin?: number
   /** The shape of the main dots (dot, randomDot, rounded, extraRounded, verticalLine, horizontalLine, classy, classyRounded, square, smallSquare, diamond) */
-  mainShape?: DotType;
+  mainShape?: DotType
   /** The color of the main dots */
-  shapeColor?: string;
+  shapeColor?: string
   /** The shape of the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint) */
-  squareShape?: CornerSquareType;
+  squareShape?: CornerSquareType
   /** The color of the 3 corner zones */
-  squareColor?: string;
+  squareColor?: string
   /** The shape of the dots in the 3 corner zones (dot, square, heart, extraRounded, classy, outpoint, inpoint) */
-  cornersDotShape?: CornerDotType;
+  cornersDotShape?: CornerDotType
   /** The color of the dots in the 3 corner zones */
-  cornersDotColor?: string;
+  cornersDotColor?: string
   /** The error correction level (L, M, Q, H) */
-  errorCorrectionLevel?: ErrorCorrectionLevel;
+  errorCorrectionLevel?: ErrorCorrectionLevel
 }
-
-
 
 const savedValues = localStorage.getItem('qr-code')
 const optionsValues: Options = savedValues ? JSON.parse(savedValues) : initialOptions
@@ -154,12 +163,14 @@ function App(): ReactElement {
    * @param {string} path - The path of the internal logo image.
    * @return {() => void} A function that sets the options with the new internal logo image path.
    */
-  const handleInternalLogo = (path: string): () => void => () => {
-    setOptions((prev) => ({
-      ...prev,
-      image: path
-    }))
-  }
+  const handleInternalLogo =
+    (path: string): (() => void) =>
+    () => {
+      setOptions((prev) => ({
+        ...prev,
+        image: path
+      }))
+    }
 
   /**
    * Handles the options change event.
@@ -167,51 +178,58 @@ function App(): ReactElement {
    * @param {React.ChangeEvent<HTMLInputElement & HTMLSelectElement>} event - The change event object.
    * @return {void} This function does not return anything but new values are recorded.
    */
-  const memoizedHandleOptions = useCallback((event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement> ) => {
-    const { name, value, checked, files } = event.target
-    const type: React.HTMLInputTypeAttribute = event.target.type
+  const memoizedHandleOptions = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
+      const { name, value, checked, files } = event.target
+      const type: React.HTMLInputTypeAttribute = event.target.type
 
-    if (!files) {
-      setOptions((prev) => ({
-        ...prev,
-        [name]: type === ('checkbox' as React.HTMLInputTypeAttribute) ? checked : value
-      }))
-      return
-    }
-
-    const image = files[0]
-    uploadError.current = ''
-
-    if (image) {
-      // Check supported formats
-      if (!image.type.match('image.*')) {
-        uploadError.current = 'Error: File is not supported.'
-        return
-      }
-
-      // Check max size (2M in Bytes)
-      if (image.size > 2097152) {
-        uploadError.current = 'Error: Maximum file size is 2 MB'
-        return
-      }
-
-      const fileReader = new FileReader()
-
-      fileReader.onerror = (err) => {
-        uploadError.current = `Failed: ${err}`
-      }
-
-      fileReader.onload = () => {
-        const image = fileReader.result as string
-
+      if (!files) {
         setOptions((prev) => ({
           ...prev,
-          image: image
+          [name]: type === ('checkbox' as React.HTMLInputTypeAttribute) ? checked : value
         }))
+
+        return
       }
-      fileReader.readAsDataURL(image)
-    }
-  }, [setOptions])
+
+      const image = files[0]
+
+      uploadError.current = ''
+
+      if (image) {
+        // Check supported formats
+        if (!image.type.match('image.*')) {
+          uploadError.current = 'Error: File is not supported.'
+
+          return
+        }
+
+        // Check max size (2M in Bytes)
+        if (image.size > 2097152) {
+          uploadError.current = 'Error: Maximum file size is 2 MB'
+
+          return
+        }
+
+        const fileReader = new FileReader()
+
+        fileReader.onerror = (err) => {
+          uploadError.current = `Failed: ${err}`
+        }
+
+        fileReader.onload = () => {
+          const image = fileReader.result as string
+
+          setOptions((prev) => ({
+            ...prev,
+            image: image
+          }))
+        }
+        fileReader.readAsDataURL(image)
+      }
+    },
+    [setOptions]
+  )
 
   const handleOffcanvas = () => dispatch({ type: 'offcanvas-toggle' })
 
@@ -224,6 +242,7 @@ function App(): ReactElement {
    */
   const handleSave = (event: React.MouseEvent<HTMLButtonElement>): void => {
     const button = event.currentTarget
+
     button.innerText = 'Saving..'
 
     setTimeout(() => {
@@ -231,7 +250,7 @@ function App(): ReactElement {
     }, 1000)
 
     localStorage.setItem('qr-code', JSON.stringify(options))
-    console.log(JSON.stringify(options))
+    //console.log(JSON.stringify(options))
   }
 
   /**
@@ -294,6 +313,7 @@ function App(): ReactElement {
    */
   useEffect(() => {
     const image = options.removeBrand ? '' : options.image
+
     qrCode.update({
       qrOptions: {
         errorCorrectionLevel: options.errorCorrectionLevel
@@ -341,11 +361,15 @@ function App(): ReactElement {
         if (!mutation.addedNodes) return
         for (let i = 0; i < mutation.addedNodes.length; i++) {
           const node = mutation.addedNodes[i]
+
           if (node.nodeName.toLowerCase() === 'svg') {
             const svg = node as SVGElement
+
             if (svg.parentElement instanceof SVGElement) {
+              /* eslint-disable-next-line no-console */
               console.log(`Parent is SVG so don't touch it`)
             } else {
+              /* eslint-disable-next-line no-console */
               console.log(`Parent is not SVG so touch it`)
               svg.setAttribute('width', '100%')
               svg.removeAttribute('height')
@@ -373,18 +397,18 @@ function App(): ReactElement {
         <div className='container py-5'>
           <div className='row flex-lg-row-reverse justify-content-between g-5 py-5'>
             <div className='col-12 col-md-4'>
-              <div className='qr-code-container overflow-scroll' ref={divRef}>
-                <div className='qr-code text-center mx-auto object-fit-contain' ref={canvasRef} />
+              <div ref={divRef} className='qr-code-container overflow-scroll'>
+                <div ref={canvasRef} className='qr-code text-center mx-auto object-fit-contain' />
                 <div className='customization'>
                   <div className='py-5'>
                     <input
-                      id='size'
                       className='form-range'
-                      type='range'
-                      name='size'
-                      min='500'
+                      id='size'
                       max='1500'
+                      min='500'
+                      name='size'
                       step='50'
+                      type='range'
                       value={options.size}
                       onChange={memoizedHandleOptions}
                     />
@@ -404,11 +428,11 @@ function App(): ReactElement {
                   <div className='d-grid py-4'>
                     <div className='form-check form-switch'>
                       <input
-                        id='removeBrand'
-                        className='form-check-input'
-                        type='checkbox'
-                        name='removeBrand'
                         checked={options.removeBrand}
+                        className='form-check-input'
+                        id='removeBrand'
+                        name='removeBrand'
+                        type='checkbox'
                         onChange={memoizedHandleOptions}
                       />
                       <label className='form-check-label' htmlFor='removeBrand'>
@@ -435,7 +459,13 @@ function App(): ReactElement {
                 </a>
                 .
               </p>
-              <Suspense fallback={<button className='mt-5 nav nav-link' type='button' role='tab' aria-selected="true">Loading...</button>}>
+              <Suspense
+                fallback={
+                  <button aria-selected='true' className='mt-5 nav nav-link' role='tab' type='button'>
+                    Loading...
+                  </button>
+                }
+              >
                 <Tabs className='mt-5' tabs={tabs} type='pills' />
               </Suspense>
             </div>
@@ -450,20 +480,20 @@ function App(): ReactElement {
       >
         <div className='offcanvas-header'>
           <h5 className='offcanvas-title'>Customization</h5>
-          <button type='button' className='btn-close text-reset' aria-label='Close' onClick={handleOffcanvas} />
+          <button aria-label='Close' className='btn-close text-reset' type='button' onClick={handleOffcanvas} />
         </div>
         <div className='offcanvas-body'>
           <div className='main-shape'>
             <div className='row'>
-              <label htmlFor='shape' className='col-sm-6 col-form-label fw-bold mb-3'>
+              <label className='col-sm-6 col-form-label fw-bold mb-3' htmlFor='shape'>
                 Outer Shape
               </label>
               <div className='col-sm-6'>
                 <select
-                  id='shape'
-                  title='Outer Shape'
                   className='form-select'
+                  id='shape'
                   name='shape'
+                  title='Outer Shape'
                   value={options.shape}
                   onChange={memoizedHandleOptions}
                 >
@@ -474,13 +504,13 @@ function App(): ReactElement {
             </div>
             <hr />
             <div className='row'>
-              <label htmlFor='mainShape' className='col-sm-6 col-form-label fw-bold mb-3'>
+              <label className='col-sm-6 col-form-label fw-bold mb-3' htmlFor='mainShape'>
                 Main Shape
               </label>
               <div className='col-sm-6'>
                 <select
-                  id='mainShape'
                   className='form-select'
+                  id='mainShape'
                   name='mainShape'
                   value={options.mainShape}
                   onChange={memoizedHandleOptions}
@@ -502,17 +532,17 @@ function App(): ReactElement {
             </div>
 
             <div className='row'>
-              <label htmlFor='shapeColor' className='col-sm-6 col-form-label fw-bold mb-3'>
+              <label className='col-sm-6 col-form-label fw-bold mb-3' htmlFor='shapeColor'>
                 Shape Color
               </label>
               <div className='col-sm-6'>
                 <input
-                  id='shapeColor'
                   className='form-control form-control-color'
+                  id='shapeColor'
                   name='shapeColor'
                   type='color'
-                  onChange={memoizedHandleOptions}
                   value={options.shapeColor}
+                  onChange={memoizedHandleOptions}
                 />
               </div>
             </div>
@@ -522,13 +552,13 @@ function App(): ReactElement {
 
           <div className='square-shape '>
             <div className='row pt-3'>
-              <label htmlFor='squareShape' className='col-sm-6 col-form-label fw-bold mb-3'>
+              <label className='col-sm-6 col-form-label fw-bold mb-3' htmlFor='squareShape'>
                 Corners Square Shape
               </label>
               <div className='col-sm-6'>
                 <select
-                  id='squareShape'
                   className='form-select'
+                  id='squareShape'
                   name='squareShape'
                   value={options.squareShape}
                   onChange={memoizedHandleOptions}
@@ -544,15 +574,15 @@ function App(): ReactElement {
             </div>
 
             <div className='row'>
-              <label htmlFor='squareColor' className='col-sm-6 col-form-label fw-bold mb-3'>
+              <label className='col-sm-6 col-form-label fw-bold mb-3' htmlFor='squareColor'>
                 Corners Squares Color
               </label>
               <div className='col-sm-6'>
                 <input
-                  id='squareColor'
                   className='form-control form-control-color'
-                  type='color'
+                  id='squareColor'
                   name='squareColor'
+                  type='color'
                   value={options.squareColor}
                   onChange={memoizedHandleOptions}
                 />
@@ -564,13 +594,13 @@ function App(): ReactElement {
 
           <div className='corners-dots'>
             <div className='row pt-3'>
-              <label htmlFor='cornersDotShape' className='col-sm-6 col-form-label fw-bold mb-3'>
+              <label className='col-sm-6 col-form-label fw-bold mb-3' htmlFor='cornersDotShape'>
                 Corners Dot Shape
               </label>
               <div className='col-sm-6'>
                 <select
-                  id='cornersDotShape'
                   className='form-select'
+                  id='cornersDotShape'
                   name='cornersDotShape'
                   value={options.cornersDotShape}
                   onChange={memoizedHandleOptions}
@@ -587,13 +617,13 @@ function App(): ReactElement {
             </div>
 
             <div className='row'>
-              <label htmlFor='cornersDotColor' className='col-sm-6 col-form-label fw-bold mb-3'>
+              <label className='col-sm-6 col-form-label fw-bold mb-3' htmlFor='cornersDotColor'>
                 Corners Dot Color
               </label>
               <div className='col-sm-6'>
                 <input
-                  id='cornersDotColor'
                   className='form-control form-control-color'
+                  id='cornersDotColor'
                   name='cornersDotColor'
                   type='color'
                   value={options.cornersDotColor}
@@ -607,27 +637,27 @@ function App(): ReactElement {
 
           <div className='brand'>
             <div className='row pt-3'>
-              <label htmlFor='image' className='col-sm-3 col-form-label fw-bold mb-3'>
+              <label className='col-sm-3 col-form-label fw-bold mb-3' htmlFor='image'>
                 Logo
               </label>
               <div className='col-sm-9'>
                 <div className='input-group'>
                   <input
-                    id='image'
-                    className='form-control'
-                    type='file'
-                    onChange={memoizedHandleOptions}
-                    name='image'
                     ref={uploadRef}
                     accept='.gif,.jpg,.jpeg,.png,.gif,.bmp,.webp,.svg'
+                    className='form-control'
+                    id='image'
+                    name='image'
+                    type='file'
+                    onChange={memoizedHandleOptions}
                   />
 
                   <button
                     className={`input-group-text${
                       uploadRef.current && uploadRef.current.value === '' ? ' disabled' : ''
                     }`}
-                    onClick={handleResetImage}
                     type='button'
+                    onClick={handleResetImage}
                   >
                     &#x2715;
                   </button>
@@ -638,18 +668,18 @@ function App(): ReactElement {
                 </div>
                 <div className='form-text'>Or use an intermal logo.</div>
                 <div className='col-sm-12'>
-                  <Dropdown title='Internal logo' id='collapsible-dropdown'>
-                    <Dropdown.Toggle className='col-sm-12 text-start' variant='secondary' id='dropdown-basic'>
+                  <Dropdown id='collapsible-dropdown' title='Internal logo'>
+                    <Dropdown.Toggle className='col-sm-12 text-start' id='dropdown-basic' variant='secondary'>
                       Internal logo
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       {embeddedLogos.map((logo) => (
                         <Dropdown.Item key={logo.path} onClick={handleInternalLogo(logo.path)}>
                           <img
+                            alt='React Bootstrap logo'
+                            className='d-inline-block align-top me-2'
                             src={logo.path}
                             width='30'
-                            className='d-inline-block align-top me-2'
-                            alt='React Bootstrap logo'
                           />
                           {logo.label}
                         </Dropdown.Item>
@@ -661,16 +691,16 @@ function App(): ReactElement {
             </div>
 
             <div className='row pt-3'>
-              <label htmlFor='imageMargin' className='col-sm-6 col-form-label fw-bold mb-3'>
+              <label className='col-sm-6 col-form-label fw-bold mb-3' htmlFor='imageMargin'>
                 Logo Margin
               </label>
               <div className='col-sm-6'>
                 <input
-                  id='imageMargin'
                   className='form-control'
-                  type='number'
-                  name='imageMargin'
+                  id='imageMargin'
                   max={100}
+                  name='imageMargin'
+                  type='number'
                   value={options.imageMargin}
                   onChange={memoizedHandleOptions}
                 />
@@ -679,13 +709,13 @@ function App(): ReactElement {
 
             <div className='main-shape'>
               <div className='row'>
-                <label htmlFor='errorLevel' className='col-sm-6 col-form-label fw-bold mb-3'>
+                <label className='col-sm-6 col-form-label fw-bold mb-3' htmlFor='errorLevel'>
                   Error Correction Level
                 </label>
                 <div className='col-sm-6'>
                   <select
-                    id='errorCorrectionLevel'
                     className='form-select'
+                    id='errorCorrectionLevel'
                     name='errorCorrectionLevel'
                     title='Error Correction Level'
                     value={options.errorCorrectionLevel}

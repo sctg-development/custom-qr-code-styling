@@ -4,7 +4,8 @@
  * Provided under the MIT License. See License file for details.
  */
 import React, { createContext, createRef, useEffect } from 'react'
-import {QRCodeStyling} from "@liquid-js/qr-code-styling"
+import { QRCodeStyling } from '@liquid-js/qr-code-styling'
+
 import { adWebsiteUrl } from './configuration'
 
 const canvasRef = createRef<HTMLDivElement>()
@@ -27,7 +28,7 @@ const qrCode = new QRCodeStyling({
     crossOrigin: 'anonymous',
     margin: 1,
     imageSize: 0.5
-  },
+  }
 })
 
 export const AppContext = createContext<ContextProps>({

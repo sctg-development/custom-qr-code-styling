@@ -4,6 +4,7 @@
  * Provided under the MIT License. See License file for details.
  */
 import React, { useState, useContext, ReactElement } from 'react'
+
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
@@ -30,12 +31,13 @@ const initialValues = {
  *
  * @return {ReactElement} The VCard form.
  */
-const VCardForm = ():ReactElement => {
+const VCardForm = (): ReactElement => {
   const [values, setValues] = useState(initialValues)
   const { qrCode } = useContext(AppContext)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
     const { name, value } = event.target
+
     setValues((prev) => ({
       ...prev,
       [name]: value
@@ -87,14 +89,8 @@ END:VCARD`
       <div className='row mb-3'>
         <div className='col'>
           <div className='form-floating'>
-            <select
-              id='title'
-              className='form-select'
-              name='title'
-              value={values.title}
-              onChange={handleChange}
-            >
-              <option value=''></option>
+            <select className='form-select' id='title' name='title' value={values.title} onChange={handleChange}>
+              <option value='' />
               <option value='M.'>M.</option>
               <option value='Mr.'>Mr.</option>
               <option value='Ms.'>Ms.</option>
@@ -110,14 +106,14 @@ END:VCARD`
         <div className='col'>
           <div className='form-floating'>
             <input
-              id='firstName'
+              required
               className='form-control'
-              type='text'
+              id='firstName'
               name='firstName'
               placeholder='First Name'
+              type='text'
               value={values.firstName}
               onChange={handleChange}
-              required
             />
             <label htmlFor='firstName'>First Name</label>
           </div>
@@ -125,11 +121,11 @@ END:VCARD`
         <div className='col'>
           <div className='form-floating'>
             <input
-              id='lastName'
               className='form-control'
-              type='text'
+              id='lastName'
               name='lastName'
               placeholder='Last Name'
+              type='text'
               value={values.lastName}
               onChange={handleChange}
             />
@@ -141,11 +137,11 @@ END:VCARD`
       <div className='mb-3'>
         <div className='form-floating'>
           <input
-            id='mobile'
             className='form-control'
-            type='text'
+            id='mobile'
             name='mobile'
             placeholder='Mobile'
+            type='text'
             value={values.mobile}
             onChange={handleChange}
           />
@@ -157,11 +153,11 @@ END:VCARD`
         <div className='col'>
           <div className='form-floating'>
             <input
-              id='phone'
               className='form-control'
-              type='text'
+              id='phone'
               name='phone'
               placeholder='Phone'
+              type='text'
               value={values.phone}
               onChange={handleChange}
             />
@@ -171,11 +167,11 @@ END:VCARD`
         <div className='col'>
           <div className='form-floating'>
             <input
-              id='fax'
               className='form-control'
-              type='text'
+              id='fax'
               name='fax'
               placeholder='Fax'
+              type='text'
               value={values.fax}
               onChange={handleChange}
             />
@@ -187,11 +183,11 @@ END:VCARD`
       <div className='mb-3'>
         <div className='form-floating'>
           <input
-            id='email'
             className='form-control'
-            type='email'
+            id='email'
             name='email'
             placeholder='Email'
+            type='email'
             value={values.email}
             onChange={handleChange}
           />
@@ -203,11 +199,11 @@ END:VCARD`
         <div className='col'>
           <div className='form-floating'>
             <input
-              id='company'
               className='form-control'
-              type='text'
+              id='company'
               name='company'
               placeholder='Company'
+              type='text'
               value={values.company}
               onChange={handleChange}
             />
@@ -217,11 +213,11 @@ END:VCARD`
         <div className='col'>
           <div className='form-floating'>
             <input
-              id='job'
               className='form-control'
-              type='text'
+              id='job'
               name='job'
               placeholder='Your Job'
+              type='text'
               value={values.job}
               onChange={handleChange}
             />
@@ -233,11 +229,11 @@ END:VCARD`
       <div className='mb-3'>
         <div className='form-floating'>
           <input
-            id='street'
             className='form-control'
-            type='text'
+            id='street'
             name='street'
             placeholder='Street'
+            type='text'
             value={values.street}
             onChange={handleChange}
           />
@@ -249,11 +245,11 @@ END:VCARD`
         <div className='col-8'>
           <div className='form-floating'>
             <input
-              id='city'
               className='form-control'
-              type='text'
+              id='city'
               name='city'
               placeholder='City'
+              type='text'
               value={values.city}
               onChange={handleChange}
             />
@@ -263,11 +259,11 @@ END:VCARD`
         <div className='col-4'>
           <div className='form-floating'>
             <input
-              id='zip'
               className='form-control'
-              type='text'
+              id='zip'
               name='zip'
               placeholder='Zip'
+              type='text'
               value={values.zip}
               onChange={handleChange}
             />
@@ -279,11 +275,11 @@ END:VCARD`
       <div className='mb-3'>
         <div className='form-floating'>
           <input
-            id='state'
             className='form-control'
-            type='text'
+            id='state'
             name='state'
             placeholder='State'
+            type='text'
             value={values.state}
             onChange={handleChange}
           />
@@ -294,11 +290,11 @@ END:VCARD`
       <div className='mb-3'>
         <div className='form-floating'>
           <input
-            id='country'
             className='form-control'
-            type='text'
+            id='country'
             name='country'
             placeholder='Country'
+            type='text'
             value={values.country}
             onChange={handleChange}
           />
@@ -309,11 +305,11 @@ END:VCARD`
       <div className='mb-3'>
         <div className='form-floating'>
           <input
-            id='website'
             className='form-control'
-            type='url'
+            id='website'
             name='website'
             placeholder='Website'
+            type='url'
             value={values.website}
             onChange={handleChange}
           />

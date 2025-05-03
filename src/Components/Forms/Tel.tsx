@@ -3,6 +3,7 @@
  * Provided under the MIT License. See License file for details.
  */
 import React, { useState, useContext, ReactElement } from 'react'
+
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
@@ -15,7 +16,7 @@ const initialValues = {
  *
  * @return {ReactElement} The rendered form component.
  */
-function TelForm():ReactElement {
+function TelForm(): ReactElement {
   const [values, setValues] = useState(initialValues)
   const { qrCode } = useContext(AppContext)
 
@@ -27,11 +28,11 @@ function TelForm():ReactElement {
    */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
     const { name, value, checked } = event.target
-    const type:React.HTMLInputTypeAttribute = event.target.type
+    const type: React.HTMLInputTypeAttribute = event.target.type
 
     setValues((prev) => ({
       ...prev,
-      [name]: type === 'checkbox'  as React.HTMLInputTypeAttribute ? checked : value
+      [name]: type === ('checkbox' as React.HTMLInputTypeAttribute) ? checked : value
     }))
   }
 
@@ -41,7 +42,7 @@ function TelForm():ReactElement {
    * @param {React.FormEvent<HTMLFormElement>} event - The form submission event.
    * @return {void} No return value.
    */
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>):void => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
 
     qrCode.update({
@@ -53,14 +54,14 @@ function TelForm():ReactElement {
     <form className='qrForm-url' onSubmit={handleSubmit}>
       <div className='form-floating mb-3'>
         <input
-          id='number'
+          required
           className='form-control'
-          type='phone'
+          id='number'
           name='number'
+          placeholder='Phone number'
+          type='phone'
           value={values.number}
           onChange={handleChange}
-          placeholder='Phone number'
-          required
         />
         <label htmlFor='number'>Destination number</label>
       </div>

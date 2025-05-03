@@ -10,7 +10,7 @@ import { ReactElement } from 'react'
  *
  * @return {ReactElement} The submit button component.
  */
-const Submit = ():ReactElement => {
+const Submit = (): ReactElement => {
   return (
     <button className='btn btn-dark' type='submit'>
       Generate

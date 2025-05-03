@@ -3,6 +3,7 @@
  * Provided under the MIT License. See License file for details.
  */
 import React, { useState, useContext, ReactElement } from 'react'
+
 import { AppContext } from '../../Context'
 import Submit from '../Submit'
 
@@ -10,12 +11,13 @@ const initialValues = {
   message: 'Please call me back',
   number: '+33620465557'
 }
+
 /**
  * Renders a form for sending an SMS message.
  *
  * @return {ReactElement} The rendered form component.
  */
-function SmsForm():ReactElement {
+function SmsForm(): ReactElement {
   const [values, setValues] = useState(initialValues)
   const { qrCode } = useContext(AppContext)
 
@@ -41,27 +43,27 @@ function SmsForm():ReactElement {
     <form className='qrForm-url' onSubmit={handleSubmit}>
       <div className='form-floating mb-3'>
         <input
-          id='number'
+          required
           className='form-control'
-          type='phone'
+          id='number'
           name='number'
+          placeholder='Phone number'
+          type='phone'
           value={values.number}
           onChange={handleChange}
-          placeholder='Phone number'
-          required
         />
         <label htmlFor='number'>Destination number</label>
       </div>
       <div className='form-floating mb-3'>
         <input
-          id='message'
+          required
           className='form-control'
-          type='text'
+          id='message'
           name='message'
+          placeholder='Message'
+          type='text'
           value={values.message}
           onChange={handleChange}
-          placeholder='Message'
-          required
         />
         <label htmlFor='message'>Message</label>
       </div>

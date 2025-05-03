@@ -4,6 +4,7 @@
  * Provided under the MIT License. See License file for details.
  */
 import { ReactElement } from 'react'
+
 import { adWebsiteUrl } from '../configuration'
 
 function Header(): ReactElement {
@@ -16,8 +17,8 @@ function Header(): ReactElement {
               <span className='fw-bolder'>{adWebsiteUrl.shortName}</span> QR CODE GENERATOR
             </h1>
           </div>
-          <a target='_blank' rel='noopener noreferrer' href={adWebsiteUrl.url}>
-            <img src={adWebsiteUrl.headerLogo} alt="ADMB" width="50" height="50" />
+          <a href={adWebsiteUrl.url} rel='noopener noreferrer' target='_blank'>
+            <img alt='ADMB' height='50' src={adWebsiteUrl.headerLogo} width='50' />
           </a>
         </div>
       </div>
