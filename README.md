@@ -5,7 +5,7 @@ Generate modern, styled, and branded QR codes for free! Built with React, based 
 <hr />
 
 <p align="center">
-  <img width="1362" alt="screenshot" src="https://github.com/sctg-development/custom-qr-code-styling/assets/165936401/080219e1-7d03-4e97-8baf-6463fd919cbe">
+  <img width="1417" alt="Capture d’écran 2025-05-04 à 13 04 46" src="https://github.com/user-attachments/assets/09799571-6ebd-4b67-92a7-056faa879514" />
 </p>
 
 ## Features
