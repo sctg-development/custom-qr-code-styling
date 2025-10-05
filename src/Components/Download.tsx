@@ -35,7 +35,7 @@ const Download = (): ReactElement => {
     // Flatten nested SVGs
     const parser = new DOMParser()
     const doc = parser.parseFromString(svgContent, 'image/svg+xml')
-    const nestedSvgs = doc.querySelectorAll('svg svg')
+    const nestedSvgs = Array.from(doc.querySelectorAll('svg svg')).reverse()
     nestedSvgs.forEach(nestedSvg => {
       const x = parseFloat(nestedSvg.getAttribute('x') || '0')
       const y = parseFloat(nestedSvg.getAttribute('y') || '0')
@@ -43,16 +43,18 @@ const Download = (): ReactElement => {
       const height = (nestedSvg.getAttribute('height') || '').replace('px', '')
       const viewBox = nestedSvg.getAttribute('viewBox') || ''
       if (width && height && viewBox) {
-        const vbMatch = viewBox.match(/^0 0 (\d+) (\d+)$/)
+        const vbMatch = viewBox.match(/^([\d.]+) ([\d.]+) ([\d.]+) ([\d.]+)$/)
         if (vbMatch) {
-          const vbW = parseFloat(vbMatch[1])
-          const vbH = parseFloat(vbMatch[2])
+          const vbX = parseFloat(vbMatch[1])
+          const vbY = parseFloat(vbMatch[2])
+          const vbW = parseFloat(vbMatch[3])
+          const vbH = parseFloat(vbMatch[4])
           const widthNum = parseFloat(width)
           const heightNum = parseFloat(height)
           const scaleX = widthNum / vbW
           const scaleY = heightNum / vbH
           const g = doc.createElementNS('http://www.w3.org/2000/svg', 'g')
-          g.setAttribute('transform', `translate(${x},${y}) scale(${scaleX.toFixed(3)},${scaleY.toFixed(3)})`)
+          g.setAttribute('transform', `translate(${x - vbX * scaleX},${y - vbY * scaleY}) scale(${scaleX.toFixed(3)},${scaleY.toFixed(3)})`)
           while (nestedSvg.firstChild) {
             g.appendChild(nestedSvg.firstChild)
           }
